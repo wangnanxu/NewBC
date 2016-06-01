@@ -1,0 +1,220 @@
+/*消息界面*/
+.sendbtn{
+	
+}
+.MyMessageLi {
+	text-align: right;
+	float: right;
+	width: 100%;
+	margin-top: 5px;
+}
+
+.YouMessageLi {
+	text-align: left;
+	float: left;
+	width: 100%;
+	margin-top: 5px;
+}
+
+.MessageTitle {
+	font-size: 10px;
+	margin: 0 auto;
+	color: #777777;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.MyMessagebody {
+	float: right;
+	width: 90%;
+	margin-top: 2px;
+}
+
+.YouMessagebody {
+	float: left;
+	width: 90%;
+	margin-top: 5px;
+}
+
+.MyMessagebody-img {
+	border: solid 1px #00AFEE;
+	border-radius: 8px;
+	float: right;
+	width: 45px;
+	height: 45px;
+}
+
+.YouMessagebody-img {
+	border: solid 1px #00AFEE;
+	border-radius: 8px;
+	float: left;
+	width: 45px;
+	height: 45px;
+}
+
+.MyMessagebody-link {
+	float: right;
+	width: 0;
+	height: 0;
+	border-width: 7px 5px 7px 10px;
+	border-style: solid;
+	border-color: transparent transparent transparent #1F2966;
+	position: relative;
+	top: 10px;
+	right: 1px;
+}
+
+.YouMessagebody-link {
+	float: left;
+	width: 0;
+	height: 0;
+	border-width: 7px 10px 7px 5px;
+	border-style: solid;
+	border-color: transparent #FFFFFF transparent transparent;
+	position: relative;
+	top: 10px;
+	left: 1px;
+}
+
+.MyMessagebody-div {
+	float: right;
+	max-width: 70%;
+}
+
+.YouMessagebody-div {
+	float: left;
+	max-width: 70%;
+}
+
+.MyMessagebody-pre {
+	color: white;
+	padding: 10px;
+	text-align: left;
+	/*white-space: pre-wrap;*/
+	font-size: 15px;
+	border-radius: 10px;
+	background: #1f2966;
+}
+
+.YouMessagebody-pre {
+	padding: 10px;
+	text-align: left;
+	/*white-space: pre-wrap;*/
+	font-size: 15px;
+	border-radius: 10px;
+	background: #ffffff;
+}
+
+
+/*添加现场*/
+.addsceneitem{
+	background: #eee;
+	border-width: 0px;
+}
+.SelectItem {
+	width: 80%;
+    float: right;
+    padding: 0 0.5rem;
+}
+.SelectItem .select{
+	background-color: #eee;
+	color: #333;
+    font-size: 1rem;
+	height: 41px;
+	width: 100%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px #d9d9d9;
+}
+.SelectItem .typea{
+	overflow: hidden;
+	border-color: rgb(169, 169, 169);
+}
+.SelectLable {
+	width: 20%;
+    float: left;
+    line-height: 2.5rem;
+    /* margin: 1.5em 0 0 0; */
+    text-align: center;
+}
+.SelectLable  .labelspan{
+	font-size: 1rem;
+	color: #333;
+}
+
+.sendMessagePic {
+	float: right;
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+}
+.sendmessagefooter{
+	height: 5.2rem;
+    background-color: #d7e2f7;
+    border-color: #ddd;
+    color: #333;
+    font-weight: 700;
+}
+.sendmessagefooter .footerdiv{
+	width: 100%;
+}
+.sendmessagefooter .count{
+	 min-height:25px;
+	 width: 100%;
+	 border:solid 1px #00AFEE; 
+	 background: #FFFFFF; 
+	 text-align: center;
+	 line-height: 25px;
+}
+.sendmessagefooter .count span{
+	color: #07536F;
+}
+.sendmessagefooter .input{
+	display: inline-flex;
+	padding: 0.4rem 0 0 10%;
+	width: 100%;
+}
+.sendmessagefooter .input input{
+	width: 70%;
+    height: 2.2rem;
+    border-radius: 3px;
+}
+.sendmessagefooter .input button{
+	margin-left: 5%;
+    border-radius: 2px;
+    min-width: 15%;
+}
+
+.notice {
+	position: fixed;
+	top: 44px;
+	left: 0;
+	background: #1f2966;
+	color: #FFFFFF;
+	z-index: 999;
+	width: 100%;
+	display: block;
+}
+.y-span{
+	color: #F0AD4E;
+}
+.notice-span {
+	line-height: 36px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+.slide-in-right {
+   -webkit-transform: translateX(-100%);
+   transform: translateX(100%); 
+}
+.slide-in-right.ng-enter, .slide-in-right > .ng-enter {
+  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+   transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+}      
+.slide-in-right.ng-enter-active, .slide-in-right > .ng-enter-active {
+   -webkit-transform: translateX(0);
+   transform: translateX(0); 
+} 
+.slide-in-right.ng-leave, .slide-in-right > .ng-leave {
+  -webkit-transition: all ease-in-out 250ms;
+   transition: all ease-in-out 250ms; 
+}

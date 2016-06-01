@@ -1,0 +1,21 @@
+<ion-modal-view>
+	<ion-header-bar style="background-color:#d7e2f7 ;">
+		<button class="button"  ng-click="GoBack()">返回</button>
+		<span class="title">发送信息</span>
+	</ion-header-bar>
+	<ion-content style="background: #eee;">
+		<ul id="treeDemo" class="ztree"></ul>
+	</ion-content>
+	<ion-footer-bar class="sendmessagefooter">
+		<div class="footerdiv">
+		<div class="count" >
+			当前已勾选人数：<span>{{serverdata.personcount}}</span>
+		</div>
+		<div class="input">
+			<input type="text" ng-model="serverdata.content" value="" />
+			<button  ng-click="SendMessageFun()">发送</button>
+		</div>
+		</div>
+		
+	</ion-footer-bar>
+</ion-modal-view>

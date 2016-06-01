@@ -1,0 +1,12 @@
+sceneModule
+.controller('SceneItemCtrl',['$scope','SceneItemServ','$stateParams',
+function($scope,SceneItemServ,$stateParams){
+	$scope.GoBack=GoBack;
+	$scope.serverdata=SceneItemServ.GetServerData();
+	$scope.$on('$ionicView.enter',function(){
+		SceneItemServ.InitData();
+	})
+	function GoBack(){
+		SceneItemServ.GoBack();
+	}
+}])

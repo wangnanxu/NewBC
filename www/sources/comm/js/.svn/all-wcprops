@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/BuildingCloud/!svn/ver/2862/App/NewBC/www/sources/comm/js
+END
+database.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/BuildingCloud/!svn/ver/2855/App/NewBC/www/sources/comm/js/database.js
+END
+module.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/BuildingCloud/!svn/ver/2843/App/NewBC/www/sources/comm/js/module.js
+END
+sqliteservices.js
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/BuildingCloud/!svn/ver/2858/App/NewBC/www/sources/comm/js/sqliteservices.js
+END
+filter.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/BuildingCloud/!svn/ver/2862/App/NewBC/www/sources/comm/js/filter.js
+END
+dataServ.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/BuildingCloud/!svn/ver/2865/App/NewBC/www/sources/comm/js/dataServ.js
+END
+worker.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/BuildingCloud/!svn/ver/2855/App/NewBC/www/sources/comm/js/worker.js
+END
+workerServ.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/BuildingCloud/!svn/ver/2858/App/NewBC/www/sources/comm/js/workerServ.js
+END
+commServ.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/BuildingCloud/!svn/ver/2865/App/NewBC/www/sources/comm/js/commServ.js
+END
+app.js
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/BuildingCloud/!svn/ver/2863/App/NewBC/www/sources/comm/js/app.js
+END

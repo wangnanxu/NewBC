@@ -1,0 +1,39 @@
+[
+	{
+		"tableName": "tb_UserMessage",
+		"tablePrama": ["MessageID", "SendUserID", "Message", "SendTime", "Recipients", "SendUserName", "SendUserPicture", "HeadPictureURI", "MsgType", "EnterpriseID", "Time", "Status","IsRead"]
+	},
+	{
+		"tableName": "tb_CurrentUsers",
+		"tablePrama": ["UserID", "UserName", "NickName", "RoleIDs", "EnterpriseID", "EnterpriseName", "DepartmentID", "HeadImage", "Token", "Sign", "FunctionIDs","LastTime"]
+	},{
+		"tableName": "tb_FrontUsers",
+		"tablePrama": ["UserID", "UserName", "DepartmentID", "EnterpriseID"]
+	},{
+		"tableName": "tb_UserRoles",
+		"tablePrama": ["UserID", "RoleID", "RoleName", "EnterpriseID"]
+	},{
+		"tableName": "tb_Departments",
+		"tablePrama": ["DepartmentID", "DepartmentName", "ParentID", "EnterpriseID"]
+	},{
+		"tableName": "tb_Projects",
+		"tablePrama": ["ProjectID", "ProjectName", "Departments", "HaveScene", "ProjectRoles", "ProjectState", "Manager", "EnterpriseID","Status","Creator"]
+	}
+	,{
+		"tableName": "tb_Scenes",
+		"tablePrama": ["SceneID", "ParentID", "SceneName", "ProjectID", "SceneWorker", "SceneState", "SceneType", "Address", "BeginDate", "EndDate", "SendStatus", "HasData", "AllWorkers","Status"]
+	}
+	,{
+		"tableName": "tb_SceneTypes",
+		"tablePrama": ["SceneTypeID", "SceneTypeName", "ParentID", "Available", "EnterpriseID"]
+	}
+	,{
+		"tableName": "tb_Materials",
+		"tablePrama": ["ID", "Name", "KnowledgeType", "DocumentType", "EnterpriseID", "UpdateTime","DocumentSize"]
+	}
+	,{
+		"tableName": "tb_SceneMessageComments",
+		"tablePrama": ["MessageID", "SceneID", "UserID", "UserPicture", "UserPictureURI", "UserName", "Address", "CreateTime", "Description", "Images", "Comments", "Status", "Type", "State", "PictureGuid","Relation","IsExamine","Examines","Files"]
+	}
+]
+

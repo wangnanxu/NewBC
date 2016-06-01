@@ -1,0 +1,13 @@
+<ion-modal-view >
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<button class="button" ng-click="HideMapModal()">
+			<b>返回</b></button>
+		<span class="title">地图</span>
+	</ion-header-bar>
+	<ion-content scroll=false>
+		<scene-Map data="serverdata.currentScene" style='margin: 0; padding: 0;height: 100%; width: 100%;'></scene-Map>
+		<!--<div id="mapcontainer" style="margin: 0; padding: 0;height: 100%; width: 100%;">
+					
+		</div>-->
+	</ion-content>
+</ion-modal-view>

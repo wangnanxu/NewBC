@@ -1,0 +1,46 @@
+10
+
+dir
+2862
+http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/lib
+http://115.29.110.41:8080/svn/BuildingCloud
+
+
+
+2016-05-26T10:16:35.269944Z
+2861
+wangnan
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+ionic
+dir
+
+angular-ui-router
+dir
+
+ngCordova
+dir
+
+angular-animate
+dir
+
+angular
+dir
+
+angular-sanitize
+dir
+

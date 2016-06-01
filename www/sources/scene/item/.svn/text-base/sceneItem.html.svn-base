@@ -1,0 +1,67 @@
+<ion-view>
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<button class="button" ng-click="GoBack()">返回</button>
+		<span class="title">具体现场</span>
+		<button class="button icon-left ion-ios-keypad-outline" ng-show="true" ng-click="HandleScene()">操作</button>
+	</ion-header-bar>
+	<ion-content style="background: #eee;">
+			<div class="sceneItem">
+				<div class="row row-wrap"  ng-repeat="item in serverdata.scenemessage">
+					<div class="col col-25">
+						<img ng-src="sources/comm/img/head.jpg" class="headimg"/>
+					</div>
+					<div class="col col-75">
+						<span class="fontA">胡杨 2016-05-30 18:56:30</span>
+						<span class="fontB">地址:<a class="fontC">电脑发布</a></span>
+						<span>经度:</span>
+						<span>纬度:</span>
+						<span>类型:</span>
+						<span>状态:</span>
+						<span>描述:</span>
+						<div class="row row-wrap ">
+							<div class="col col-50">
+								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
+							</div>
+							<div class="col col-50">
+								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
+							</div>
+						</div>
+						<div class="itembtn">
+							<a class="fontC">[审核]</a>
+							<a class="fontC"> [评论]</a>
+							<a class="fontC">[删除]</a>
+							<a class="fontC">[归档]</a>
+						</div>
+						<div class="commentcontent">
+							<div class="comment">
+								<span>胡杨:按时大大说 </span>
+								<span> 2016-05-30 18:58:54</span>
+								<a class="fontC">删除</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</ion-content>
+	<ion-footer-bar>
+		<div class="tabs footertabs">
+			<a class="tab-item button button-icon">
+				<i class="icon ion-ios-plus tabi"></i>
+				<span>签到</span>
+			</a>
+			<a class="tab-item button button-icon " >
+				<i class="icon ion-ios-minus tabi"></i>
+				<span>签退</span>
+			</a>
+			<a class="tab-item button button-icon">
+
+				<i class="icon ion-ios-camera tabi"></i>
+				<span>拍照</span>
+			</a>
+			<a class="tab-item button button-icon">
+				<i class="icon ion-ios-briefcase tabi"></i>
+				<span>手册</span>
+			</a>
+		</div>
+	</ion-footer-bar>
+</ion-view>

@@ -1,0 +1,182 @@
+sceneModule
+	.factory('SceneItemServ', ['$state', 'DataServ', '$rootScope', 'CommFun',
+		function($state, DataServ, $rootScope, CommFun) {
+			var IsLoadHistory = {};
+			var serverdata = {
+				IsSceneWorker: false, //是否为本现场工作人员
+				SelectStatus: 0,
+
+				sceneid: '', //当前现场id
+				scenemessage: null //现场数据
+
+			}
+			var server = {
+				GetServerData: GetServerData,
+				InitData: InitData,
+				GoBack: GoBack
+			}
+			return server;
+
+			function GetServerData() {
+				return serverdata;
+			}
+
+			function InitData() {
+				serverdata.IsSceneWorker = false;
+				serverdata.SelectStatus = 0;
+				if ($rootScope.parentidList && $rootScope.parentidList.length > 1) {
+					var len = $rootScope.parentidList.length;
+					serverdata.sceneid = $rootScope.parentidList[len - 1];
+					DataServ.BaseSelect("select * from tb_Scenes where SceneID = ?", [serverdata.sceneid]).then(function() {
+						if (data) {
+							var scworker = JSON.parse(data.item(0).SceneWorker);
+							var _length = scworker.length;
+							for (var i = 0; i < _length; i++) {
+								var userids = scworker[i].UserID;
+								if (CommFun.CheckItem(userids, userInfo.UserID) != -1) {
+									serverdata.IsSceneWorker = true;
+									break;
+								}
+							}
+							var _time = CommFun.format(new Date(3015, 0, 1, 10, 10, 10), "yyyy-MM-dd hh:mm:ss");
+							IsLoadHistory[serverdata.sceneid] = _time;
+							DataServ.BaseSelect("select * from tb_SceneMessageComments where SceneID = ? and State != 0 and State !=2 and CreateTime < ? order by CreateTime desc limit 0,10", [serverdata.sceneid, _time]).then(function(adata) {
+								if (adata) {
+									CheckInitDBData(adata, true);
+								}
+							})
+						}
+
+					})
+				}
+			}
+			/*检测数据是否有10条，不足获取服务器，足够显示*/
+			function CheckInitDBData(data, isinit) {
+				var _time = IsLoadHistory[serverdata.sceneid];
+				if (data) {
+					ShowLocal();
+					IsLoadHistory[serverdata.sceneid] = data[data.length - 1].CreateTime;
+				}
+				if (!data || isinit) {
+					if (_time != false) {
+						PostHistoryData(serverdata.sceneid, _time, function(callbackdata, count) {
+							if (callbackdata) {
+								if (callbackdata.length < 10) {
+									IsLoadHistory[serverdata.sceneid] = false;
+								} else {
+									IsLoadHistory[serverdata.sceneid] = callbackdata[callbackdata.length - 1].CreateTime;
+								}
+								var _length = callbackdata.length;
+								for (var i = 0; i < _length; i++) {
+									var $temp_SceneItem = $("#temp_SceneItem");
+									var $messageid = $("#" + callbackdata[i].Id);
+									var _tem = ShowData([callbackdata[i]], false);
+									if ($messageid.length > 0) {
+										$messageid.replaceWith(_tem);
+									} else {
+										$temp_SceneItem.prepend(_tem);
+									}
+								}
+								var $temp_SceneItem = $("#temp_SceneItem");
+								$(".contentimage").trigger('create');
+								$temp_SceneItem.listview('refresh');
+								if (isinit) {
+									AddPaneScroll("up", PullSceneItem);
+								} else {
+									myScroll.refresh();
+								}
+								$.mobile.loading("hide");
+							}
+						});
+					}
+				}
+				if (isinit) {
+					SelectDBUpload(sceneid, [0, 2], CheckDBUploadData);
+				}
+				//显示本地数据
+				function ShowLocal() {
+					var _jsondata = ChangeSelectToJsondata(data);
+					IsLoadHistory[sceneid] = _jsondata[_jsondata.length - 1].CreateTime;
+					var _refresh = new RefreshSceneItem();
+					ShowData(_jsondata, true);
+				}
+			};
+
+			function ShowData(jsondatas, islocal) {
+				var _length = jsondatas.length;
+				var _arrayTem = [];
+				for (var i = _length - 1; i >= 0; i--) {
+					var jsondata = jsondatas[i];
+						if (islocal) {
+							jsondata.Id = jsondata.MessageID;
+						} 
+						//			_tem = _tem.replace(/{SendUserI
+						if (islocal) {
+							var Add_GPS = jsondata.Address.split(',')
+							jsondata.Address=Add_GPS[0];
+							jsondata.GPS=Add_GPS[1] == undefined ? [] : Add_GPS[1];
+						} 
+						jsondata.Description = jsondata.Description == null ? "" : jsondata.Description;
+						var str='';
+						switch(jsondata.Type){
+							case "1":
+							str =  "签到";
+							break;
+							case "2":
+							str =  "过程照";
+							break;
+							case "4":
+							str = "安全照";
+							break;
+							case "8":
+							str = "临检照";
+							break;
+							case "16":
+							str = "交底照"
+							break;
+							case "32":
+							str = "签退"
+							break;
+							case "64":
+							str = "完工照"
+							break;
+							default:
+							
+							break;
+						}
+						jsondata.TypeText=str;
+						var stastr='';
+						if (jsondata.Status == "0") {
+							stastr = "正常状态";
+						} else if (jsondata.Status == "1") {
+							stastr = "审核通过";
+						} else if (jsondata.Status == "2" && (jsondata.IsExamine == "false" || !jsondata.IsExamine)) {
+							stastr = "需要整改";
+						} else if (jsondata.Status == "2" && (jsondata.IsExamine == "true" || jsondata.IsExamine)) {
+							stastr =  "已整改";
+						} else if (jsondata.Status == "3") {
+							stastr =  "已归档";
+						}
+						jsondata.StatusText=stastr;
+						if(serverdata.scenemessage==null){
+							serverdata.scenemessage=new Array();
+						}
+						serverdata.scenemessage.push(jsondata)
+				}
+				console.log(serverdata.scenemessage);
+			}
+
+			function GoBack() {
+				if ($rootScope.parentidList) {
+					$rootScope.parentidList.pop();
+					var len = $rootScope.parentidList.length;
+					$state.go('scene', {
+						projectID: $rootScope.projectId,
+						manager: null,
+						sceneID: $rootScope.parentidList[len - 1]
+					})
+				}
+
+			}
+		}
+	])

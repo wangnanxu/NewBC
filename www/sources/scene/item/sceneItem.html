@@ -1,0 +1,78 @@
+<ion-view>
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<button class="button" ng-click="GoBack()">返回</button>
+		<span class="title">具体现场</span>
+		<button class="button icon-left ion-ios-keypad-outline" ng-show="true" ng-click="HandleScene()">操作</button>
+	</ion-header-bar>
+	<ion-content style="background: #eee;">
+		<ion-refresher on-refresh="LoadMore()">
+  		</ion-refresher>
+			<div class="sceneItem">
+				<div class="row row-wrap"  ng-repeat="item in serverdata.scenemessage" >
+					<div class="col col-25">
+						<img ng-src="sources/comm/img/head.jpg" class="headimg"/>
+					</div>
+					<div class="col col-75 contentimg" ng-if="item.Model==0">
+						<span class="fontA">{{item.UserName}}{{ item.CreateTime}}</span>
+						<span >地址:<a class="fontC">{{item.Address}}</a></span>
+						<span>经度:{{item.Longitude}}</span>
+						<span>纬度:{{item.Latitude}}</span>
+						<span>类型:{{item.TypeText}}</span>
+						<a class="fontC" ng-if="item.UserID==userInfo.UserID && item.Status!=3 && serverdata.sceneState!='3'" ng-click="DeleteComment($parentIndex,$index)">删除</a>
+					</div>
+					<div class="col col-75 contentimg" ng-if="item.Model==2 || item.Model==1">
+						<span class="fontA">{{item.UserName}}{{item.CreateTime}}</span>
+						<span >地址:<a class="fontC">{{item.Address}}</a></span>
+						<span>经度:{{item.Longitude}}</span>
+						<span>纬度:{{item.Latitude}}</span>
+						<span>类型:{{item.TypeText}}</span>
+						<span>状态:{{item.StatusText}}</span>
+						<span>描述:{{item.Description}}</span>
+						<div class="row row-wrap ">
+							<div class="col col-50">
+								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
+							</div>
+							<div class="col col-50">
+								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
+							</div>
+						</div>
+						<div class="itembtn" ng-if="item.Model!=1 && serverdata.sceneState!='3'">
+							<a class="fontC" ng-if="item.Options[0]">[审核]</a>
+							<a class="fontC"> [评论]</a>
+							<a class="fontC" ng-if="item.Options[1]">[删除]</a>
+							<a class="fontC" ng-if="item.Options[2]">[归档]</a>
+						</div>
+						<div class="commentcontent">
+							<div class="comment" ng-repeat="commentitem in item.Comments">
+								<span>{{commentitem.UserName}}:{{commentitem.Content}} </span>
+								<span class="fontB"> {{commentitem.Time}}</span>
+								<a class="fontC" ng-if="commentitem.UserID==userInfo.UserID && item.Status!=3" ng-click="DeleteComment($parentIndex,$index)">删除</a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+	</ion-content>
+	<ion-footer-bar>
+		<div class="tabs footertabs">
+			<a class="tab-item button button-icon" ng-click="SceneItemSign(1)">
+				<i class="icon ion-ios-plus tabi"></i>
+				<span>签到</span>
+			</a>
+			<a class="tab-item button button-icon " ng-click="SceneItemSign(32)">
+				<i class="icon ion-ios-minus tabi"></i>
+				<span>签退</span>
+			</a>
+			<a class="tab-item button button-icon" ng-click="GotoAddSceneMessage()">
+
+				<i class="icon ion-ios-camera tabi"></i>
+				<span>拍照</span>
+			</a>
+			<a class="tab-item button button-icon" ng-click="GotoMaterialScene()">
+				<i class="icon ion-ios-briefcase tabi"></i>
+				<span>手册</span>
+			</a>
+		</div>
+	</ion-footer-bar>
+</ion-view>

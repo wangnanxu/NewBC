@@ -1,0 +1,60 @@
+<ion-view>
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<div class="materialhead">
+			<div>
+				<span class="title" style="color: #333;"> {{serverdata.title}}</span>
+				<a ng-show="serverdata.selectindex==1" class="button icon-left ion-ios-loop-strong sendbtn" ng-click="SyncMetrial()">
+					<b>同步</b>
+				</a>
+			</div>
+			<div class="row row-wrap twotab">
+				<a class="col col-50 button" ng-class="{'selected':serverdata.selectindex==0,'noselected':serverdata.selectindex!=0}" ng-click="ChangeSelect(0)">
+					<i class="icon ion-ios-cloud-download-outline"></i>
+					<span>已下载</span>
+				</a>
+				<a class="col col-50 button" ng-class="{'selected':serverdata.selectindex==1,'noselected':serverdata.selectindex!=1}" ng-click="ChangeSelect(1)">
+					<i class="icon ion-ios-paper-outline"></i>
+					<span>资料库</span>
+				</a>
+			</div>
+		</div>
+	</ion-header-bar>
+	<ion-content style="background: #eee;">
+		<div class="bar bar-header item-input-inset serchbtn">
+			<label class="item-input-wrapper">
+       			<input type="search" placeholder="搜索资料..." ng-model="searchName" style="border-radius: 0.3rem;">
+       			<i class="icon  ion-ios-search-strong placeholder-icon" ng-click="search(searchName)"></i>
+    		</label>
+		</div>
+		<div ng-if="serverdata.selectindex==0" class="list">
+			<div class="item marterialitem" ng-repeat="downitem in serverdata.downlist|SerchMaterialFilter:searchName">
+				<a ng-click="OpenApp(downitem.ID)">
+					<img ng-src='downitem.DocumentType'>
+					<h2>{{downitem.Name}}</h2>
+					<p>更新时间：{{downitem.UpdateTime}}</p>
+					<p>大小：{{downitem.DocumentSize}}</p>
+				</a>
+				<a ng-click="SetDeleteMaterial(downitem.ID)">delete</a>
+			</div>
+		</div>
+		<div ng-if="serverdata.selectindex==1" class="list">
+			<div class="item marterialitem" ng-repeat="allitem in serverdata.alllist|SerchMaterialFilter:searchName" ng-click="GoDownload($index)">
+				<div class="row row-wrap">
+					<div class="col col-20">
+						<img ng-src="{{allitem.DocumentType}}" />
+					</div>
+					<div class="col col-70 detail">
+						<h2>{{allitem.Name}}</h2>
+					<p>更新时间：{{allitem.UpdateTime}}</p>
+					<p>大小：{{allitem.DocumentSize}}</p>
+					</div>
+					<a class="tab-item">
+						<i class="icon ion-ios-arrow-forward"></i>
+					</a>
+				</div>
+				
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>

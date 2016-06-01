@@ -1,0 +1,55 @@
+<ion-view>
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<span class="title"> 个人信息</span>
+	</ion-header-bar>
+	<ion-content style="background: #eee;">
+		<div class="UserContent">
+			<div class="UserHead">
+				<div class="HeadInfo">
+					<img id="headimg" ng-src="sources/comm/img/head.jpg">
+					<span>
+						账号	{{userInfo.UserID}}
+					</span>
+					<span>
+						姓名	{{userInfo.UserName}}
+					</span>
+				</div>
+			</div>
+			<div class="UserQuit">
+				<a class="UserButton Userbtn">
+					<span>更改头像</span>
+				</a>
+			</div>
+			<div class="UserPassword">
+				<a class="UserButton Userbtn" ng-click="ChangePage('updatepassword.html')">
+					<span>更改密码</span>
+				</a>
+			</div>
+			<div class="UserPassword">
+				<a class="UserButton Userbtn" ng-click="ChangePage('ercode.html')">
+					<span>二维码</span>
+				</a>
+			</div>
+			<div class="UserQuit" ng-click="ExitToLoading('0')">
+				<a class="UserButton Userbtn"  ng-click="ChangePage('ercode.html')">
+					<span>退出登录</span>
+				</a>
+			</div>
+			<div  class="UserQuit" ng-click="Quite();">
+				<a class="UserButton Userbtn">
+					<span>退出程序</span>
+				</a>
+			</div>
+			<div class="UserQuit" ng-click="AlertDeleteTable()">
+				<a class="UserButton Userbtn">
+					<span>清除缓存</span>
+				</a>
+			</div>
+			<div class="version">
+				当前版本:<span style="margin-right: 10px;" class="OldVersion">{{appVersion}}</span> <span style="margin-left: 10px;">最新版本: </span><span class="NewVersion">{{newVersion.version}}</span>
+				<a id="DownloadAndroid" ng-click="DownloadNewVersion()"></a>
+				<a id="DownloadIOS" href="itms-apps://itunes.apple.com/cn/app/xiang-mu-guan-li-yun-ping-tai/id1090278722?mt=8"></a>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

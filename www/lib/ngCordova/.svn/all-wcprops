@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/BuildingCloud/!svn/ver/2854/App/NewBC/www/lib/ngCordova
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/ngCordova/LICENSE
+END
+package.json
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/ngCordova/package.json
+END
+.bower.json
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/ngCordova/.bower.json
+END
+CHANGELOG.md
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/ngCordova/CHANGELOG.md
+END
+bower.json
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/ngCordova/bower.json
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/ngCordova/README.md
+END

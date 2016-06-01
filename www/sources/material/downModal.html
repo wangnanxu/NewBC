@@ -1,0 +1,22 @@
+<ion-modal-view >
+	<ion-header-bar style="background-color:#d7e2f7 ;">
+		<button class="button" ng-click="GoBack()">返回</button>
+		<span class="title">下载</span>
+	</ion-header-bar>
+	<ion-content class="downloadmaterial">
+		<div  class="content">
+			<img ng-src="{{serverdata.downfile.DocumentType}}" style="width: 50%;" />
+			<div class="downdetail">文件名：<span >{{serverdata.downfile.Name}}</span></div>
+			<div class="downdetail">文件大小：<span >{{serverdata.downfile.DocumentSize}}</span></div>
+			<button ng-show="serverdata.downstatus==0" class="button  button-balanced" ng-click="DownloadMaterial()">点击下载</button>
+			<button ng-show="serverdata.downstatus==1" class="button  button-balanced" ng-click="OpenApp()">打开文件</button>
+			<button ng-show="serverdata.downstatus==1" class="button  button-balanced" ng-click="DownloadMaterial()">下载最新文件</button>
+		</div>
+		<div ng-show="serverdata.isShowProcess" class="process">
+			<span class="rate">{{serverdata.downrate}}%</span>
+			<div id="DownProcess" class="processbar">
+				
+			</div>
+		</div>
+	</ion-content>
+</ion-modal-view>

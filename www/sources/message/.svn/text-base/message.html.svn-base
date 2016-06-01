@@ -1,0 +1,45 @@
+<ion-view >
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<span class="title"> 消息</span>
+		<a class="button icon-left ion-ios-paperplane-outline sendbtn" ng-click="ShowSendMessage()">
+			<b>发送</b>
+		</a>
+	</ion-header-bar>
+	<ion-content style="background: #eee;" delegate-handle="messageScroll">
+		<ion-refresher on-refresh="SelectMessage()">
+  		</ion-refresher>
+  			<div ng-if="serverdata.noticelist">
+  				<div class="notice" ng-click="ClickNotice(serverdata.noticelist[0].MessageID)">
+  					<span class="y-span">公告：</span>
+  					<span class="notice-span">{{serverdata.noticelist[0].Message}}</span>
+  				</div>
+			</div>
+			<div>
+				<ul>
+					<li ng-repeat="message in serverdata.messagelist">
+						<div ng-class="{'MyMessageLi':message.SendUserID == userInfo.UserID,'YouMessageLi':message.SendUserID != userInfo.UserID}">
+							<div ng-class="{'MyMessageLi':message.SendUserID == userInfo.UserID,'YouMessageLi':message.SendUserID != userInfo.UserID}">
+								<span ng-if="message.SendUserID == userInfo.UserID" class="MessageTitle">{{message.SendTime}} {{message.SendUserName}}</span>
+								<span ng-if="message.SendUserID != userInfo.UserID" class="MessageTitle">{{message.SendUserName}} {{message.SendTime}}</span>
+							</div>
+							<div ng-class="{'MyMessageBody':message.SendUserID == userInfo.UserID,'YouMessageBody':message.SendUserID != userInfo.UserID}">
+								<img  ng-src='message.SendUserPicture' ng-class="{'MyMessagebody-img':message.SendUserID == userInfo.UserID,'YouMessagebody-img':message.SendUserID != userInfo.UserID}"/>
+								<div ng-class="{'MyMessagebody-link':message.SendUserID == userInfo.UserID,'YouMessagebody-link':message.SendUserID != userInfo.UserID}">
+									
+								</div>
+								<div ng-class="{'MyMessagebody-div':message.SendUserID == userInfo.UserID,'YouMessagebody-div':message.SendUserID != userInfo.UserID}">
+									<div ng-class="{'MyMessagebody-pre':message.SendUserID == userInfo.UserID,'YouMessagebody-pre':message.SendUserID != userInfo.UserID}">
+										<span>{{message.Message}}</span>
+										<a ng-if="message.SendUserID != userInfo.UserID" href='#' ng-click="ResponseMessage(message.SendUserID)" style='color: cornflowerblue;'>回复</a>
+									</div>
+								</div>
+								<div >
+									<img ng-if="message.Status=='0'" src='sources/comm/img/loadimg.gif' class='sendMessagePic'/>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	</ion-content>
+</ion-view>

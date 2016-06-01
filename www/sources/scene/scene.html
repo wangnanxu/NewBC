@@ -1,0 +1,30 @@
+<ion-view>
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<button class="button" ng-click="GoBack()">返回</button>
+		<span class="title">现场</span>
+		<button class="button" ng-show="serverdata.isShowAddbtn" ng-click="ShowAddScene(0)">新增</button>
+	</ion-header-bar>
+	<ion-content style="background: #eee;">
+		<div class="bar bar-header item-input-inset">
+			<label class="item-input-wrapper">
+       			<input type="search" placeholder="搜索现场..." ng-model="searchName" style="border-radius: 0.3rem;" >
+       			<i class="icon  ion-ios-search-strong placeholder-icon" ></i>
+    		</label>
+		</div>
+		<div class="list">
+			<span ng-show="!serverdata.currentlist">无现场</span>
+			<a class="item item-icon-right projectitem" ng-show="serverdata.currentlist" ng-repeat="item in serverdata.currentlist|SerchSceneFilter:searchName" >
+				
+					<span class="projectname" ng-click="GotoScene($index)">[现场]{{item.SceneName}}</span>
+					<span class='projectstatus'>
+						{{const_state[item.SceneState]}}
+						<img ng-show="item.Status=='true'" ng-src='sources/comm/img/red.png' alt='' style='width: 8px; height: 8px; position: absolute;top: 5px;right: 55px;z-index: 999;' />
+					</span>
+				<i class="icon ion-ios-gear-outline" ng-click="ShowUpdateModal($index)"></i>
+			</a>
+		</div>
+		
+			<ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="!serverdata.noMore">
+			</ion-infinite-scroll>
+	</ion-content>
+</ion-view>

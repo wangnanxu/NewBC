@@ -1,0 +1,11 @@
+loginModule
+.controller('SyncCtrl',['$scope','$stateParams','SyncServ','$ionicLoading',
+function($scope,$stateParams,SyncServ,$ionicLoading){
+	$scope.$on('$ionicView.enter',function(){
+		$ionicLoading.show();
+		SyncServ.InitData($stateParams.isSame);
+	})
+	$scope.$on('$ionicView.leave',function(){
+		$ionicLoading.hide();
+	})
+}])

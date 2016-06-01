@@ -1,0 +1,33 @@
+<ion-view>
+	<ion-content >
+		<div class="Contain">
+		<div class="login_logo">
+			<img ng-src="sources/comm/img/BCLogo.png" />
+		</div>
+		<div class="login_body">
+			<div class="login_body_b">
+				<div class="login_body_img">
+					<img ng-src="sources/comm/img/loginaccount.png " />
+				</div>
+				<div class="login_body_input">
+					<input type="text"  class="login_input" ng-model="serverdata.account.name"  placeholder="请输入账号 "  >
+				</div>
+			</div>
+			<div class="login_body_t ">
+				<div class="login_body_img">
+					<img ng-src="sources/comm/img/loginpassword.png " />
+				</div>
+				<div class="login_body_input">
+					<input type="password"  class="login_input" ng-model="serverdata.account.pwd" placeholder="请输入密码 " >
+				</div>
+			</div>
+		</div>
+		<div class="login_button button_a" ng-click="Login()">
+			<a href="#" class="login_button_a" >登录</a>
+		</div>
+		<div class="version">
+			当前版本:<span style="margin-right: 10px;" class="OldVersion">{{appVersion}}</span> <span style="margin-left: 10px;">最新版本: </span><span class="NewVersion">{{newVersion.version}}</span>
+		</div>
+		</div>
+	</ion-content>
+</ion-view>

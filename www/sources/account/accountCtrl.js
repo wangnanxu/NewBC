@@ -1,0 +1,4 @@
+accountModule
+.controller('AccountCtrl',[function(){
+	
+}])

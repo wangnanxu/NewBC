@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="sources/comm/css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="sources/comm/css/message.css"/>
+		<link rel="stylesheet" type="text/css" href="sources/comm/css/zTreeStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="sources/comm/css/projectscene.css"/>
+		<link rel="stylesheet" type="text/css" href="sources/comm/css/material.css"/>
+		<link rel="stylesheet" type="text/css" href="sources/comm/css/account.css"/>
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+		<script src="lib/angular-sanitize/angular-sanitize.js"></script>
+		<script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="sources/comm/js/app.js"></script>
+    <script src="sources/comm/js/module.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/comm/js/sqliteservices.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/comm/js/database.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/comm/js/dataServ.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/comm/js/commServ.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/comm/js/worker.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/comm/js/workerServ.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/comm/js/filter.js" type="text/javascript" charset="utf-8"></script>
+    
+    <!-- 百度定位 -->
+		<script src="http://api.map.baidu.com/api?v=2.0&ak=6m9QsQ0h1Bcuf96n9SFvHdC9" type="text/javascript"></script>
+		<!-- 高德定位 -->
+		<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=7c0d217e85341b95206da9ad9c179ca8"></script>
+		
+    <script src="sources/message/lib/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="sources/message/lib/jquery.ztree.core-3.5.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="sources/message/lib/jquery.ztree.excheck-3.5.min.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="sources/login/loginCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/login/loginServ.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/login/syncCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/login/syncServ.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="sources/message/messageCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/message/messageServ.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="sources/project/projectCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/project/projectServ.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="sources/scene/sceneCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/scene/sceneServ.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/scene/item/sceneItemCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/scene/item/sceneItemServ.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/scene/mapModal/map.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="sources/material/materialCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/material/materialServ.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="sources/account/accountCtrl.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sources/account/accountServ.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body ng-app="BC">
+    <!--
+      The nav bar that will be updated as we navigate between views.
+    -->
+    <!--
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+.UserContent {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: auto;
+}
+
+.UserHead {
+	width: 100%;
+	height: 100px;
+}
+
+.HeadImage {
+	float: left;
+	display: block;
+	height: 78px;
+	width: 78px;
+	text-align: center;
+	border: 1px solid #EEEEEE;
+	vertical-align: middle;
+	margin: 20px;
+}
+
+.HeadImage img {
+	width: 100%;
+	height: 100%;
+}
+
+.HeadInfo {
+	width: auto;
+	height: 78px;
+	margin: 25px 0;
+	padding-left:120px ;
+}
+
+.HeadInfo img {
+	position: absolute;
+	left: 25px;
+	width: 78px;
+	height: 78px;
+}
+
+.HeadInfo span {
+	width: 90%;
+	height: 46px;
+	margin: 0;
+	padding: 0;
+	display: block;
+	line-height: 24px;
+	word-break: break-all;
+	overflow:auto;
+	font-size: 1rem;
+}
+
+.HeadInfo a {
+	line-height: 43px;
+	vertical-align: middle;
+	text-decoration: none;
+	color: #1f2966;
+	font-weight: 500;
+}
+
+.HeadInfo a:link,
+.HeadInfo a:visited,
+.HeadInfo a:hover,
+.HeadInfo a:active,
+{
+	color: #1f2966;
+}
+
+.HeadChange {
+	position: fixed;
+	top: 107px;
+	right: 12px
+}
+
+.HeadChange a {
+	color: #1f2966;
+}
+
+.UserPassword {
+	width: 100%;
+	text-align: center;
+}
+
+.UserQuit {
+	width: 100%;
+	text-align: center;
+}
+
+.Userbtn {
+	margin: 0.4rem auto;
+    width: 80%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    vertical-align: middle;
+    font-size: 1rem;
+}
+
+.UserButton {
+	display: block;
+	background: none repeat scroll 0 0 #d7e2f7;
+	color: #1f2966;
+}
+
+.UserButton:hover {
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+}
+
+.UserButton a {
+	text-decoration: none;
+	color: #1f2966;
+}
+
+.headbtn {
+	width: 100%;
+	height: 100%;
+	display: block;
+	line-height: 30px;
+	font-weight: 500;
+}
+

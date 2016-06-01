@@ -1,0 +1,105 @@
+<ion-modal-view>
+	<ion-header-bar align-title="center" style="background-color:#d7e2f7;">
+		<button class="button" ng-click="HideAddSceneModal()">
+			<b>返回</b></button>
+		<span class="title">添加现场</span>
+		<button class="button"  ng-click="ConfirmAddScene()">
+			<b ng-show="serverdata.modaltype==0">添加</b>
+			<b ng-show="serverdata.modaltype==1">完成</b>
+		</button>
+	</ion-header-bar>
+	<ion-content style="background: #eee;">
+		<div class="list SceneBottom">
+			<div class="item addsceneitem">
+				<div class="SelectLable">
+					<label for="select-native-1" class="labelspan">项目/现场</label>
+				</div>
+				<div class="SelectItem">
+					<select id="id_parent" name="select-native-1" class="select" >
+							<option ng-if="!serverdata.parentSceneList" value=''>请选择项目/现场</option>
+							<option ng-if="serverdata.parentSceneList" ng-repeat="item in serverdata.parentSceneList" value='{{item.ID}}'>{{item.SceneName}}</option>
+						</select>
+				</div>
+			</div>
+			<div class="item addsceneitem">
+				<div class="SelectLable">
+					<label for="proname" class="labelspan">现场名称</label>
+				</div>
+				<div class="SelectItem">
+					<input name="proname" type="text" placeholder="现场名称" ng-model="serverdata.addSceneName" class="select">
+				</div>
+			</div>
+			<div class="item addsceneitem">
+				<div class="SelectLable">
+					<label for="address" class="labelspan">现场地址</label>
+				</div>
+				<div class="SelectItem">
+					<input name="address" type="text" placeholder="现场地址" value="{{serverdata.address}}" disabled="true" class="select">
+				</div>
+			</div>
+			<div class="item addsceneitem">
+				<div class="SelectLable">
+					<label for="select-custom-24" class="labelspan">现场类型</label>
+				</div>
+				<div class="SelectItem">
+					<a class="button icon-right ion-ios-arrow-down select typea" ng-click="ShowSceneTypeModal(0)">
+						<span ng-if="!serverdata.sceneTypeSelect">请选择</span>
+						<span ng-repeat="item in serverdata.sceneTypeSelect">
+								{{item.name}}
+							</span>
+					</a>
+				</div>
+			</div>
+			<div class="item addsceneitem">
+				<div class="SelectLable">
+					<label for="status" class="labelspan">现场状态</label>
+				</div>
+				<div class="SelectItem">
+					<select id="id_status" name="select-native-1" class="select">
+							<option value='1'>未开始</option>
+							<option value='2'>进行中</option>
+						</select>
+				</div>
+			</div>
+			<div class="item addsceneitem">
+				<div class="SelectLable">
+					<label for="beginDate" class="labelspan">开始时间</label>
+				</div>
+				<div class="SelectItem" ng-click="SelectTime('id_beginDate')">
+					<input id="id_beginDate" disabled="true" type="text" name="beginDate" ng-model="serverdata.beginDate" class="select">
+				</div>
+			</div>
+			<div class="item addsceneitem">
+				<div class="SelectLable">
+					<label for="endDate" class="labelspan">结束时间</label>
+				</div>
+				<div  class="SelectItem" ng-click="SelectTime('id_endDate')">
+					<input id="id_endDate" disabled="true" type="text" name="endDate" ng-model="serverdata.endDate" class="select">
+				</div>
+			</div>
+			<div class="item addsceneitem" ng-show="serverdata.hasRoles" >
+				<div class="SelectItem" class="labelspan">
+					<label for="status">分配人员
+							<input  type="checkbox" ng-click="ChangeShow()">
+						</label>
+				</div>
+			</div>
+			<div ng-show="serverdata.isShowPerson">
+				<div class="item addsceneitem" ng-repeat="items in serverdata.roleslist">
+					<div class='SelectLable'>
+						<label for='select-native-1'>{{items.type}}</label>
+					</div>
+					<div class="SelectItem">
+						<a class="button icon-right ion-ios-arrow-down select typea" ng-click="ShowSceneTypeModal(1,$index)">
+							<span ng-if="!items.Select">请选择</span>
+							<span ng-repeat="item in items.Select">
+									{{item.name}}
+								</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ion-content>
+</ion-modal-view>
