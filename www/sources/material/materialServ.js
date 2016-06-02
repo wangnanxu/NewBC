@@ -1,6 +1,6 @@
 materialModule
-	.factory('MaterialServ', ['CommFun', 'DataServ', '$rootScope',
-		function(CommFun, DataServ, $rootScope) {
+	.factory('MaterialServ', ['CommFun', 'DataServ', '$rootScope','$state',
+		function(CommFun, DataServ, $rootScope,$state) {
 			//文件类型图片
 			var TYPEJSON = {
 				1: "sources/comm/img/excel.gif",
@@ -21,6 +21,7 @@ materialModule
 			var deleteMaterial = [];
 			var processEle = null;
 			var serverdata = {
+				isScene:false,
 				selectindex: 0, //已下载为0 ，资料库为1
 				title: '已下载',
 				downlist: null, //已下载资料
@@ -38,6 +39,7 @@ materialModule
 				GoDownload: GoDownload,
 				DownloadMaterial:DownloadMaterial,
 				GoBack: GoBack,
+				GoBackScene:GoBackScene,
 				Destory:Destory
 			}
 			return server;
@@ -47,8 +49,12 @@ materialModule
 			}
 
 			function InitData() {
-				$rootScope.FlagNewSceneItem = true;
-				$rootScope.IsHasNewMessage = true; //是否有新的消息
+				if($rootScope.parentidList && $rootScope.parentidList.length>0){
+					serverdata.isScene=true;
+				}else{
+					//$rootScope.FlagNewSceneItem = true;
+					//$rootScope.IsHasNewMessage = true; //是否有新的消息
+				}
 				SelectDownloadMaterial();
 			}
 
@@ -158,11 +164,15 @@ materialModule
 					processEle.style.cssText = "width:0px";
 				}
 			}
+			function GoBackScene(){
+				$state.go('sceneItem');
+			}
 			function Destory(){
 				serverdata.selectindex=0;
 				serverdata.title = "已下载";
 				serverdata.downlist=null;
 				serverdata.alllist=null;
+				serverdata.isScene=false;
 			}
 
 		}

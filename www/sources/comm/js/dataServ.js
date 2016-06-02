@@ -26,6 +26,8 @@ commModule
 				PostGetMaterial: PostGetMaterial,
 				PostAddScene: PostAddScene,
 				PostHistoryData: PostHistoryData, //请求具体现场历史数据
+				PostAddSceneItem:PostAddSceneItem,
+				PostDeleteComment:PostDeleteComment,//删除评论
 
 				GetAccount: GetAccount,
 				GetEnterpriselist: GetEnterpriselist,
@@ -342,7 +344,25 @@ commModule
 			function PostAddSceneItem(postdata, status) {
 				var q = $q.defer();
 				if ($rootScope.onLine) {
-					BasePost(postdata, '/APIS/Scene/AddScene').then(function(adata) {
+					BasePost(postdata, '/APIS/SceneData/AddSceneData').then(function(adata) {
+						q.resolve(adata)
+					})
+				} else {
+					
+				}
+				return q.promise;
+			}
+			//删除评论
+			function PostDeleteComment(messageid, commentguid, time) {
+				var q = $q.defer();
+				if ($rootScope.onLine) {
+					var postdata = {
+						Token: $rootScope.userInfo.Token,
+						MessageID: messageid,
+						CommentGuid: commentguid,
+						Time: time
+					}
+					BasePost(postdata, '/APIS/SceneData/DeleteSceneComment').then(function(adata) {
 						q.resolve(adata)
 					})
 				} else {
@@ -360,8 +380,12 @@ commModule
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded:charset=utf-8'
 					}
-				}).success(function(response) {
-					q.resolve(response);
+				}).success(function(data, status, headers, config) {
+					data.status=status;
+					q.resolve(data);
+				}).error(function(data, status, headers, config){
+					data.status=status;
+					q.resolve(data)
 				});
 				return q.promise;
 			}
@@ -710,7 +734,8 @@ commModule
 				return q.promise;
 			}
 
-			function BaseSaveUpdate() {
+			function BaseSaveUpdate(tablename, field, param, condition, cparam) {
+				
 				var q = $q.defer();
 				SqliteServ.saveOrupadte(tablename, field, param, condition, cparam).then(function(res) {
 					q.resolve(res);

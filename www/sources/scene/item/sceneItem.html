@@ -5,8 +5,6 @@
 		<button class="button icon-left ion-ios-keypad-outline" ng-show="true" ng-click="HandleScene()">操作</button>
 	</ion-header-bar>
 	<ion-content style="background: #eee;">
-		<ion-refresher on-refresh="LoadMore()">
-  		</ion-refresher>
 			<div class="sceneItem">
 				<div class="row row-wrap"  ng-repeat="item in serverdata.scenemessage" >
 					<div class="col col-25">
@@ -18,7 +16,7 @@
 						<span>经度:{{item.Longitude}}</span>
 						<span>纬度:{{item.Latitude}}</span>
 						<span>类型:{{item.TypeText}}</span>
-						<a class="fontC" ng-if="item.UserID==userInfo.UserID && item.Status!=3 && serverdata.sceneState!='3'" ng-click="DeleteComment($parentIndex,$index)">删除</a>
+						<a class="fontC" ng-if="item.UserID==userInfo.UserID && item.Status!=3 && serverdata.sceneState!='3'" ng-click="DeleteSceneMessage($index)">删除</a>
 					</div>
 					<div class="col col-75 contentimg" ng-if="item.Model==2 || item.Model==1">
 						<span class="fontA">{{item.UserName}}{{item.CreateTime}}</span>
@@ -37,22 +35,25 @@
 							</div>
 						</div>
 						<div class="itembtn" ng-if="item.Model!=1 && serverdata.sceneState!='3'">
-							<a class="fontC" ng-if="item.Options[0]">[审核]</a>
-							<a class="fontC"> [评论]</a>
-							<a class="fontC" ng-if="item.Options[1]">[删除]</a>
-							<a class="fontC" ng-if="item.Options[2]">[归档]</a>
+							<a class="fontC" ng-if="item.Options[0]" ng-click="ExamineSceneMessage($index)">[审核]</a>
+							<a class="fontC" ng-click="CommentSceneMessage($index)"> [评论]</a>
+							<a class="fontC" ng-if="item.Options[1]" ng-click="DeleteSceneMessage($index)">[删除]</a>
+							<a class="fontC" ng-if="item.Options[2]" ng-click="ArchiveSceneMessage($index)">[归档]</a>
 						</div>
 						<div class="commentcontent">
 							<div class="comment" ng-repeat="commentitem in item.Comments">
 								<span>{{commentitem.UserName}}:{{commentitem.Content}} </span>
 								<span class="fontB"> {{commentitem.Time}}</span>
-								<a class="fontC" ng-if="commentitem.UserID==userInfo.UserID && item.Status!=3" ng-click="DeleteComment($parentIndex,$index)">删除</a>
+								<a class="fontC" ng-if="commentitem.Option==1" ng-click="DeleteComment($parent.$index,$index)">删除</a>
+								<a class="fontC" ng-if="commentitem.Option==2" ng-click="GotoAddSceneMessage($parent.$index)">整改</a>
 							</div>
 						</div>
 					</div>
 					
 				</div>
 			</div>
+			<ion-infinite-scroll id="Scene_Message" on-infinite="loadMoreMessage()" distance="1%" ng-if="!serverdata.noMore">
+    		</ion-infinite-scroll>
 	</ion-content>
 	<ion-footer-bar>
 		<div class="tabs footertabs">

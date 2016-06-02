@@ -193,7 +193,7 @@ sceneModule
 			}
 			//返回
 			function GoBack() {
-				if ($rootScope.parentidList == null && $rootScope.parentidList.length <= 0) {
+				if ($rootScope.parentidList == null || ($rootScope.parentidList && $rootScope.parentidList.length <= 0)) {
 					return;
 				}
 				if ($rootScope.parentidList.length == 1 && $rootScope.parentidList[0] == '-1') {
@@ -257,7 +257,7 @@ sceneModule
 					GetDepartments(); //获取人员
 					$timeout(function() {
 						SetUpdateData(); //初始化数据
-					}, 200)
+					}, 1000)
 				}
 			}
 			//设置默认
@@ -394,12 +394,12 @@ sceneModule
 				}
 			}
 
-			function AddParentScene(data) {
-				var len = data.length;
+			function AddParentScene(adata) {
+				var len = adata.length;
 				for (var i = 0; i < len; i++) {
 					var item = {
 						SceneName: "[项目]" + adata[i].SceneName,
-						ID: adata[i].ProjectID + "|" + [i].SceneID
+						ID: adata[i].ProjectID + "|" + adata[i].SceneID
 					}
 					if (serverdata.parentSceneList == null) {
 						serverdata.parentSceneList = new Array();
@@ -548,9 +548,12 @@ sceneModule
 			};
 			//初始化树形结构
 			function InitTreeType() {
-				var _str = zNodesType.join(",");
-				var _json = eval('[' + _str + ']');
-				$.fn.zTree.init($("#typetreeDemo"), settingType, _json);
+				console.log("zNodesType=551" + zNodesType);
+				if (zNodesType) {
+					var _str = zNodesType.join(",");
+					var _json = eval('[' + _str + ']');
+					$.fn.zTree.init($("#typetreeDemo"), settingType, _json);
+				}
 			};
 			//设置默认节点
 			function SetDefaultSelect() {
@@ -746,16 +749,16 @@ sceneModule
 						_sendData.ProjectID = _arr[0];
 						_sendData.ParentID = _arr[1];
 					}
-					
+
 				} else {
 					_sendData.SceneID = serverdata.currentScene.SceneID;
-					_sendData.ProjectID=serverdata.currentScene.ProjectID;
-					_sendData.ParentID=serverdata.currentScene.ParentID;
+					_sendData.ProjectID = serverdata.currentScene.ProjectID;
+					_sendData.ParentID = serverdata.currentScene.ParentID;
 				}
 				if (_sendData.ProjectID == "" || _sendData.ParentID == "") {
-						//NotificationAlert("请选择项目或现场", "错误提示");
-						return null;
-					}
+					CommFun.ShowAlert("错误提示", "请选择项目或现场");
+					return null;
+				}
 				if (serverdata.sceneTypeSelect && serverdata.sceneTypeSelect.length > 0) {
 					var len = serverdata.sceneTypeSelect.length
 					var arr = new Array();
@@ -764,56 +767,51 @@ sceneModule
 					}
 					_sendData.SceneType = arr.join("|"); //现场类型
 				} else {
-					//NotificationAlert("请选择现场类型", "错误提示");
+					CommFun.ShowAlert("错误提示", "请选择现场类型");
 					return null;
 				}
 				_sendData.SceneState = $("#id_status").find("option:selected").val(); //现场状态
-				_sendData.BeginDate = serverdata.beginDate; //开始时间
+				_sendData.BeginDate = $("#id_beginDate").val(); //开始时间
 				if (!_sendData.BeginDate || _sendData.BeginDate == "") {
-					//NotificationAlert("请选择开始时间", "错误提示");
+					CommFun.ShowAlert("错误提示", "请选择开始时间");
 					return null;
 				}
-				_sendData.EndDate = serverdata.endDate; //结束时间
+				_sendData.EndDate = $("#id_endDate").val();; //结束时间
 				if (!_sendData.EndDate || _sendData.EndDate == "") {
-					//NotificationAlert("请选择结束时间", "错误提示");
+					CommFun.ShowAlert("错误提示", "请选择结束时间");
 					return null;
 				}
-				if (serverdata.isShowPerson) {
-					var _serworker = new Array(); //工作人员UserID
-					//遍历所有选择列表(未完成)
-					if (serverdata.roleslist) {
-						var len = serverdata.roleslist.length;
-						for (var i = 0; i < len; i++) {
-							var _data = {
-								roleId: serverdata.roleslist[i].RoleID,
-								UserID: new Array()
-							}
-							if (serverdata.roleslist[i].Select) {
-								var length = serverdata.roleslist[i].Select.length;
-								for (var j = 0; j < length; j++) {
-									_data.UserID.push(serverdata.roleslist[i].Select[j].id)
-								}
-							}
-							_serworker.push(_data);
+				var _serworker = new Array(); //工作人员UserID
+				//遍历所有选择列表
+				if (serverdata.roleslist) {
+					var len = serverdata.roleslist.length;
+					for (var i = 0; i < len; i++) {
+						var _data = {
+							roleId: serverdata.roleslist[i].RoleID,
+							UserID: new Array()
 						}
-					}
-					_sendData.SceneWorker = JSON.stringify(_serworker);
-				} else {
-					if (sceneWorker) {
-						_sendData.SceneWorker = sceneWorker;
+						if (serverdata.roleslist[i].Select) {
+							var length = serverdata.roleslist[i].Select.length;
+							for (var j = 0; j < length; j++) {
+								_data.UserID.push(serverdata.roleslist[i].Select[j].id)
+							}
+						}
+						_serworker.push(_data);
 					}
 				}
+				_sendData.SceneWorker = JSON.stringify(_serworker);
+
 				if (_sendData.SceneName == "") {
-					//NotificationAlert("现场名为空", "错误提示");
+					CommFun.ShowAlert("错误提示", "现场名为空");
 					return null;
 				}
 
 				if (_sendData.Address == "") {
-					//NotificationAlert("未获取到现场地址", "错误提示");
+					CommFun.ShowAlert("错误提示", "未获取到现场地址");
 					return null;
 				}
 				if (_sendData.SceneType == "" || _sendData.SceneType == null) {
-					//NotificationAlert("请选择现场类型", "错误提示");
+					CommFun.ShowAlert("错误提示", "请选择现场类型");
 					return;
 				}
 				//alert(JSON.stringify(_sendData))

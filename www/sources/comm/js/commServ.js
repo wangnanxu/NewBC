@@ -7,6 +7,7 @@ commModule
 				InitData: InitData, //初始化全局数据
 				RefreshData: RefreshData, //刷新数据到界面
 				ShowConfirm: ShowConfirm, //确认框
+				ShowAlert:ShowAlert,//警告框
 				CheckPlatform: CheckPlatform, //检查平台信息
 				CheckItem: CheckItem, //检查数组中是否包含某个元素
 				format: format,
@@ -68,10 +69,23 @@ commModule
 				});
 				confirmPopup.then(function(res) {
 					q.resolve(res)
-					confirmPopup.hide();
+					confirmPopup.close();
 				});
 				return q.promise;
 			};
+			//alert警告框
+			function ShowAlert(title,content){
+				var q = $q.defer();
+				var alertPopup  = $ionicPopup.alert({
+					title: title,
+					template: content
+				});
+				alertPopup .then(function(res) {
+					q.resolve(res)
+					alertPopup.close();
+				});
+				return q.promise;
+			}
 
 			function CheckPlatform() {
 				//平台、设备和操作系统
@@ -201,7 +215,6 @@ commModule
 						var noop = function() {};
 
 						/********百度SDK**********/
-
 						window.locationService.getCurrentPosition(function(pos) {
 							var Position = {
 								"longitude": pos.coords.longitude,
