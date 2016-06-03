@@ -6,59 +6,68 @@
 	</ion-header-bar>
 	<ion-content style="background: #eee;">
 			<div class="sceneItem">
-				<div class="row row-wrap"  ng-repeat="item in serverdata.scenemessage">
+				<div class="row row-wrap"  ng-repeat="item in serverdata.scenemessage|SceneMessageFilter:serverdata.isDO" >
 					<div class="col col-25">
 						<img ng-src="sources/comm/img/head.jpg" class="headimg"/>
 					</div>
-					<div class="col col-75">
-						<span class="fontA">胡杨 2016-05-30 18:56:30</span>
-						<span class="fontB">地址:<a class="fontC">电脑发布</a></span>
-						<span>经度:</span>
-						<span>纬度:</span>
-						<span>类型:</span>
-						<span>状态:</span>
-						<span>描述:</span>
+					<div class="col col-75 contentimg" ng-if="item.Model==0">
+						<span class="fontA">{{item.UserName}}{{ item.CreateTime}}</span>
+						<span >地址:<a class="fontC">{{item.Address}}</a></span>
+						<span>经度:{{item.Longitude}}</span>
+						<span>纬度:{{item.Latitude}}</span>
+						<span>类型:{{item.TypeText}}</span>
+						<a class="fontC" ng-if="item.UserID==userInfo.UserID && item.Status!=3 && serverdata.sceneState!='3'" ng-click="DeleteSceneMessage($index)">删除</a>
+					</div>
+					<div class="col col-75 contentimg" ng-if="item.Model==2 || item.Model==1">
+						<span class="fontA">{{item.UserName}}{{item.CreateTime}}</span>
+						<span >地址:<a class="fontC">{{item.Address}}</a></span>
+						<span>经度:{{item.Longitude}}</span>
+						<span>纬度:{{item.Latitude}}</span>
+						<span>类型:{{item.TypeText}}</span>
+						<span>状态:{{item.StatusText}}</span>
+						<span>描述:{{item.Description}}</span>
 						<div class="row row-wrap ">
-							<div class="col col-50">
-								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
-							</div>
-							<div class="col col-50">
-								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
+							<div class="col col-50" ng-repeat="imgitem in item.Images">
+								<img ng-src="{{imgitem.ThumbnailPicture}}"  class="imgcontent"/>
 							</div>
 						</div>
-						<div class="itembtn">
-							<a class="fontC">[审核]</a>
-							<a class="fontC"> [评论]</a>
-							<a class="fontC">[删除]</a>
-							<a class="fontC">[归档]</a>
+						<div class="itembtn" ng-if="item.Model!=1 && serverdata.sceneState!='3'">
+							<a class="fontC" ng-if="item.Options[0]" ng-click="ExamineSceneMessage($index)">[审核]</a>
+							<a class="fontC" ng-click="CommentSceneMessage($index)"> [评论]</a>
+							<a class="fontC" ng-if="item.Options[1]" ng-click="DeleteSceneMessage($index)">[删除]</a>
+							<a class="fontC" ng-if="item.Options[2]" ng-click="ArchiveSceneMessage($index)">[归档]</a>
 						</div>
 						<div class="commentcontent">
-							<div class="comment">
-								<span>胡杨:按时大大说 </span>
-								<span> 2016-05-30 18:58:54</span>
-								<a class="fontC">删除</a>
+							<div class="comment" ng-repeat="commentitem in item.Comments">
+								<span>{{commentitem.UserName}}:{{commentitem.Content}} </span>
+								<span class="fontB"> {{commentitem.Time}}</span>
+								<a class="fontC" ng-if="commentitem.Option==1" ng-click="DeleteComment($parent.$index,$index)">删除</a>
+								<a class="fontC" ng-if="commentitem.Option==2" ng-click="GotoAddSceneMessage($parent.$index)">整改</a>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
+			<ion-infinite-scroll id="Scene_Message" on-infinite="loadMoreMessage()" distance="1%" ng-if="!serverdata.noMore">
+    		</ion-infinite-scroll>
 	</ion-content>
 	<ion-footer-bar>
 		<div class="tabs footertabs">
-			<a class="tab-item button button-icon">
+			<a class="tab-item button button-icon" ng-click="SceneItemSign(1)">
 				<i class="icon ion-ios-plus tabi"></i>
 				<span>签到</span>
 			</a>
-			<a class="tab-item button button-icon " >
+			<a class="tab-item button button-icon " ng-click="SceneItemSign(32)">
 				<i class="icon ion-ios-minus tabi"></i>
 				<span>签退</span>
 			</a>
-			<a class="tab-item button button-icon">
+			<a class="tab-item button button-icon" ng-click="GotoAddSceneMessage()">
 
 				<i class="icon ion-ios-camera tabi"></i>
 				<span>拍照</span>
 			</a>
-			<a class="tab-item button button-icon">
+			<a class="tab-item button button-icon" ng-click="GotoMaterialScene()">
 				<i class="icon ion-ios-briefcase tabi"></i>
 				<span>手册</span>
 			</a>

@@ -73,8 +73,9 @@ sceneModule
 				ChangeShow: ChangeShow,
 				ConfirmSelectType: ConfirmSelectType,
 				ConfirmAddScene: ConfirmAddScene, //确认添加
-				InitUpdateModal: InitUpdateModal //显示设置
-
+				InitUpdateModal: InitUpdateModal, //显示设置
+				
+				Destory:Destory
 			}
 			return server;
 
@@ -499,7 +500,6 @@ sceneModule
 
 							})
 						}
-						console.log(serverdata.roleslist)
 						CommFun.RefreshData(serverdata);
 					}
 				})
@@ -548,7 +548,6 @@ sceneModule
 			};
 			//初始化树形结构
 			function InitTreeType() {
-				console.log("zNodesType=551" + zNodesType);
 				if (zNodesType) {
 					var _str = zNodesType.join(",");
 					var _json = eval('[' + _str + ']');
@@ -821,6 +820,8 @@ sceneModule
 			function InitUpdateModal(index) {
 				serverdata.currentScene = serverdata.currentlist[index];
 				CommFun.RefreshData(serverdata);
+			}
+			function Destory(){
 			}
 		}
 	])

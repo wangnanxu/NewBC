@@ -42,6 +42,7 @@ commModule
 				if (data) {
 					try {
 						var _jsondata = JSON.parse(data);
+						console.log(_jsondata)
 						if (_jsondata.Success) {
 							changeTime += 1;
 							if (firstlogoin) {
@@ -118,7 +119,7 @@ commModule
 							data.Data.Time = data.Time;
 							DataServ.SaveSyncMessage(data.Data);
 							//显示数据
-							//MessageServ.ShowAddUserMessage(data.Data);
+							MessageServ.ShowAddMessage(data.Data);
 							break;
 						default:
 							//alert("worker同步错误");

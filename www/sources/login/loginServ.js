@@ -55,9 +55,9 @@ loginModule
 							template: '登录中'
 						})
 						SetCurrentUser(data[0]);
-						DataServ.PostConfirmDays(data[0]).then(function(data) {
-							if (data.Success) {
-								HandleConfirmDays(data);
+						DataServ.PostConfirmDays(data[0]).then(function(adata) {
+							if (adata.Success) {
+								HandleConfirmDays(adata);
 							}
 							$ionicLoading.hide();
 						})
@@ -158,6 +158,9 @@ loginModule
 				DataServ.GetEnterpriselist().then(function(adata) {
 					if (adata) {
 						var _len = adata.length;
+						if(enterpriseids==null){
+							enterpriseids=new Array();
+						}
 						for (var i = 0; i < _len; i++) {
 							enterpriseids[i] = adata[i].EnterpriseID;
 						}

@@ -1,19 +1,15 @@
 10
 
 dir
-2865
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/sources/scene/mapModal
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www/sources/scene/mapModal
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-31T10:28:03.792172Z
-2865
-wangnan
-has-props
-
-
-
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -24,24 +20,23 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 map.js
 file
+4
 
 
 
-
-2016-05-31T07:24:22.929959Z
-ad5ed245196ceade28387100b61bca1a
-2016-05-31T10:28:03.792172Z
-2865
-wangnan
-
-
-
-
-
+2016-06-03T05:40:50.107891Z
+50b1243b87033da67808ce063dbd5d8b
+2016-06-03T05:56:49.583708Z
+4
+wangn
 
 
 
@@ -58,7 +53,12 @@ wangnan
 
 
 
-2702
+
+
+
+
+
+2792
 
 mapModal.html
 file
@@ -66,11 +66,11 @@ file
 
 
 
-2016-05-31T06:50:25.314415Z
+2016-06-03T02:05:08.403668Z
 bdf91227aa35610c0da3204099f1d685
-2016-05-31T10:28:03.792172Z
-2865
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 

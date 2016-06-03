@@ -6,6 +6,7 @@ commModule
 			//var baseurl = "http://192.168.0.122:7081"; //本地1
 			var baseurl = "http://192.168.0.133:9002"; //本地2
 			var dbBase = null;
+			$rootScope.onLine = true;
 			var server = {
 				InitDataBase: InitDataBase,
 				GetBaseURL: GetBaseURL,
@@ -23,15 +24,18 @@ commModule
 				PostNoticeRead: PostNoticeRead, //修改公告已读
 				PostSendMessage: PostSendMessage, //发送消息
 				PostGetMaterial: PostGetMaterial,
-				PostAddScene:PostAddScene,
+				PostAddScene: PostAddScene,
+				PostHistoryData: PostHistoryData, //请求具体现场历史数据
+				PostAddSceneItem:PostAddSceneItem,
+				PostDeleteComment:PostDeleteComment,//删除评论
 
 				GetAccount: GetAccount,
 				GetEnterpriselist: GetEnterpriselist,
 				GetUser: GetUser,
 				GetDownloadMaterial: GetDownloadMaterial,
-				GetRoles:GetRoles,
-				GetFrontUser:GetFrontUser,
-				GetSceneType:GetSceneType,
+				GetRoles: GetRoles,
+				GetFrontUser: GetFrontUser,
+				GetSceneType: GetSceneType,
 				BaseSelect: BaseSelect,
 
 				SaveUserInfo: SaveUserInfo,
@@ -44,16 +48,19 @@ commModule
 				SaveSyncMessage: SaveSyncMessage,
 				SaveWorkerTime: SaveWorkerTime, //worker同步时间更改
 				SaveWorkerUser: SaveWorkerUser,
+				SaveSceneMessageData: SaveSceneMessageData, //存储具体现场数据
 				AddSendMessage: AddSendMessage, //发送消息
 				UpdateSendMessage: UpdateSendMessage, //修改发送消息状态
 				UpdateNoticeStatus: UpdateNoticeStatus, //更改公告状态
-				UpdateProjectSceneStatus:UpdateProjectSceneStatus,//修改项目现场已读状态
-				BaseUpdate:BaseUpdate,
+				UpdateProjectSceneStatus: UpdateProjectSceneStatus, //修改项目现场已读状态
+				ChangeState: ChangeState,
+				BaseUpdate: BaseUpdate,
+				BaseSaveUpdate: BaseSaveUpdate,
 
 				DeleteAllTable: DeleteAllTable,
 				WorkerDeleteData: WorkerDeleteData,
 				DeleteSendMessage: DeleteSendMessage, //删除发送消息
-				BaseDelete:BaseDelete
+				BaseDelete: BaseDelete
 
 			}
 			return server;
@@ -80,178 +87,287 @@ commModule
 			//检测app版本
 			function PostGetAppVersion(appPlatform) {
 				var q = $q.defer();
-				var _data = {
-					suffix: appPlatform
-				}
-				BasePost(_data, '/APIS/Account/GetAppVersion').then(function(adata) {
-					if (adata.Success) {
-						q.resolve(adata.Value);
-					} else {
-						//"获取最新版本信息失败", "错误提示"
+				if ($rootScope.onLine) {
+					var _data = {
+						suffix: appPlatform
 					}
+					BasePost(_data, '/APIS/Account/GetAppVersion').then(function(adata) {
+						if (adata.Success) {
+							q.resolve(adata.Value);
+						} else {
+							//"获取最新版本信息失败", "错误提示"
+						}
 
-				})
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//检测是否超过3天
 			function PostConfirmDays(data) {
 				var q = $q.defer();
-				var _data = {
-					Token: data.Token,
-					LastTime: data.LastTime
+				if ($rootScope.onLine) {
+					var _data = {
+						Token: data.Token,
+						LastTime: data.LastTime
+					}
+					BasePost(_data, '/APIS/Account/ChekLoginTime').then(function(adata) {
+						q.resolve(adata);
+					})
+				} else {
+
 				}
-				BasePost(_data, '/APIS/Account/ChekLoginTime').then(function(adata) {
-					q.resolve(adata);
-				})
 				return q.promise;
 			}
 			//登陆请求数据
 			function PostLoginData(parma) {
 				var q = $q.defer();
-				BasePost(parma, '/APIS/Account/Login').then(function(adata) {
-					if (adata.Success) {
-						q.resolve(adata.Value);
-					} else {
-						q.resolve("")
-							//"服务器登陆错误：" + adata.Message, "错误提示"
-					}
-				})
+				if ($rootScope.onLine) {
+					BasePost(parma, '/APIS/Account/Login').then(function(adata) {
+						if (adata.Success) {
+							q.resolve(adata.Value);
+						} else {
+							q.resolve("")
+								//"服务器登陆错误：" + adata.Message, "错误提示"
+						}
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//请求清除服务器登陆状态
 			function PostLoginClearCache(token) {
-				var parma = {
-					Token: token
-				}
 				var q = $q.defer();
-				BasePost(parma, '/APIS/SyncData/ClearCacheForLogin').then(function(adata) {
-					if (adata.Success) {
-						q.resolve(adata.Value);
-					} else {
-						//"服务器登陆错误：" + adata.Message, "错误提示"
+				if ($rootScope.onLine) {
+					var parma = {
+						Token: token
 					}
-				})
+
+					BasePost(parma, '/APIS/SyncData/ClearCacheForLogin').then(function(adata) {
+						if (adata.Success) {
+							q.resolve(adata.Value);
+						} else {
+							//"服务器登陆错误：" + adata.Message, "错误提示"
+						}
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//同步
 			//同步组织数据
 			function PostSyncOrganization() {
-				var parma = {
-					Token: $rootScope.userInfo.Token
-				}
 				var q = $q.defer();
-				BasePost(parma, '/APIS/SyncData/SyncOrganization').then(function(adata) {
-					if (adata.Success) {
-						q.resolve(adata);
-					} else {
-						//"同步组织信息错误" + adata.Message, "错误提示"
+				if ($rootScope.onLine) {
+					var parma = {
+						Token: $rootScope.userInfo.Token
 					}
-				})
+
+					BasePost(parma, '/APIS/SyncData/SyncOrganization').then(function(adata) {
+						if (adata.Success) {
+							q.resolve(adata);
+						} else {
+							//"同步组织信息错误" + adata.Message, "错误提示"
+						}
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//同步现场项目数据
 			function PostSyncSceneAndProject() {
-				var parma = {
-					Token: $rootScope.userInfo.Token
-				}
 				var q = $q.defer();
-				BasePost(parma, '/APIS/SyncData/SyncProjectAndScene').then(function(adata) {
-					if (adata.Success) {
-						q.resolve(adata);
-					} else {
-						//"服务器登陆错误：" + adata.Message, "错误提示"
+				if ($rootScope.onLine) {
+					var parma = {
+						Token: $rootScope.userInfo.Token
 					}
-				})
+					BasePost(parma, '/APIS/SyncData/SyncProjectAndScene').then(function(adata) {
+						if (adata.Success) {
+							q.resolve(adata);
+						} else {
+							//"服务器登陆错误：" + adata.Message, "错误提示"
+						}
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//确认同步状态
 			function PostInitSyncState() {
-				var parma = {
-					Token: $rootScope.userInfo.Token
-				}
 				var q = $q.defer();
-				BasePost(parma, '/APIS/SyncData/InitSyncState').then(function(adata) {
-					q.resolve(adata.Success);
-				})
+				if ($rootScope.onLine) {
+					var parma = {
+						Token: $rootScope.userInfo.Token
+					}
+
+					BasePost(parma, '/APIS/SyncData/InitSyncState').then(function(adata) {
+						q.resolve(adata.Success);
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//同步消息
 			function PostHistoryMessage(parma) {
 				var q = $q.defer();
-				BasePost(parma, '/APIS/ChatMessage/GetChatMessage').then(function(adata) {
-					if (adata.Success) {
-						q.resolve(adata);
-					} else {
-						//"服务器请求历史消息错误：" + adata.Message, "错误提示"
-					}
-				})
+				if ($rootScope.onLine) {
+					BasePost(parma, '/APIS/ChatMessage/GetChatMessage').then(function(adata) {
+						if (adata.Success) {
+							q.resolve(adata);
+						} else {
+							//"服务器请求历史消息错误：" + adata.Message, "错误提示"
+						}
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//同步现场消息数据
 			function PostSceneData() {
 				var q = $q.defer();
-				var parma = {
-					Token: $rootScope.userInfo.Token
-				}
-				BasePost(parma, '/APIS/SyncData/SyncSceneData').then(function(adata) {
-					if (adata.Success) {
-						q.resolve(adata);
-					} else {
-						//"服务器同步错误：" + adata.Message, "错误提示"
+				if ($rootScope.onLine) {
+					var parma = {
+						Token: $rootScope.userInfo.Token
 					}
-				})
+					BasePost(parma, '/APIS/SyncData/SyncSceneData').then(function(adata) {
+						if (adata.Success) {
+							q.resolve(adata);
+						} else {
+							//"服务器同步错误：" + adata.Message, "错误提示"
+						}
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//确认同步
 			function PostConfirmSync(data) {
 				var q = $q.defer();
-				var parma = {
-					syncTime: data.Time,
-					Token: $rootScope.userInfo.Token,
-					syncAction: data.Action
-				}
-				BasePost(parma, '/APIS/SyncData/SyncConfirm').then(function(adata) {
+				if ($rootScope.onLine) {
+					var parma = {
+						syncTime: data.Time,
+						Token: $rootScope.userInfo.Token,
+						syncAction: data.Action
+					}
+					BasePost(parma, '/APIS/SyncData/SyncConfirm').then(function(adata) {
 
-				})
+					})
+				} else {
+
+				}
 				return q.promise;
 
 			}
 			//修改公告已读
 			function PostNoticeRead(id) {
 				var q = $q.defer();
-				var parma = {
-					MessageID: id
-				}
-				BasePost(parma, '/APIS/ChatMessage/SystemMessageIsRead').then(function(adata) {
+				if ($rootScope.onLine) {
+					var parma = {
+						MessageID: id
+					}
+					BasePost(parma, '/APIS/ChatMessage/SystemMessageIsRead').then(function(adata) {
 
-				})
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//发送消息
 			function PostSendMessage(parma) {
 				var q = $q.defer();
-				BasePost(parma, '/APIS/ChatMessage/Send').then(function(adata) {
-					q.resolve(adata)
-				})
+				if ($rootScope.onLine) {
+					BasePost(parma, '/APIS/ChatMessage/Send').then(function(adata) {
+						q.resolve(adata)
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 			//获取所有资料信息
 			function PostGetMaterial() {
 				var q = $q.defer();
-				var parma = {
-					Token: $rootScope.userInfo.Token
+				if ($rootScope.onLine) {
+					var parma = {
+						Token: $rootScope.userInfo.Token
+					}
+					BasePost(parma, '/APIS/KnowlegeBase/GetKnowlegeList').then(function(adata) {
+						q.resolve(adata)
+					})
+				} else {
+
 				}
-				BasePost(parma, '/APIS/KnowlegeBase/GetKnowlegeList').then(function(adata) {
-					q.resolve(adata)
-				})
 				return q.promise;
 			}
 			//添加现场
 			function PostAddScene(postdata) {
 				var q = $q.defer();
-				BasePost(postdata, '/APIS/Scene/AddScene').then(function(adata) {
-					q.resolve(adata)
-				})
+				if ($rootScope.onLine) {
+					BasePost(postdata, '/APIS/Scene/AddScene').then(function(adata) {
+						q.resolve(adata)
+					})
+				} else {
+
+				}
+				return q.promise;
+			}
+			//请求具体现场历史数据
+			function PostHistoryData(sceneid, time) {
+				var q = $q.defer();
+				if ($rootScope.onLine) {
+					var postdata = {
+						SceneID: sceneid,
+						Token: $rootScope.userInfo.Token,
+						Time: time,
+						PageSize: 10,
+						Status: 4
+					}
+					BasePost(postdata, '/APIS/SceneData/GetSceneData').then(function(adata) {
+
+						q.resolve(adata)
+					})
+				} else {
+
+				}
+				return q.promise;
+			}
+
+			function PostAddSceneItem(postdata, status) {
+				var q = $q.defer();
+				if ($rootScope.onLine) {
+					BasePost(postdata, '/APIS/SceneData/AddSceneData').then(function(adata) {
+						q.resolve(adata)
+					})
+				} else {
+					
+				}
+				return q.promise;
+			}
+			//删除评论
+			function PostDeleteComment(messageid, commentguid, time) {
+				var q = $q.defer();
+				if ($rootScope.onLine) {
+					var postdata = {
+						Token: $rootScope.userInfo.Token,
+						MessageID: messageid,
+						CommentGuid: commentguid,
+						Time: time
+					}
+					BasePost(postdata, '/APIS/SceneData/DeleteSceneComment').then(function(adata) {
+						q.resolve(adata)
+					})
+				} else {
+
+				}
 				return q.promise;
 			}
 
@@ -260,12 +376,14 @@ commModule
 				$http({
 					method: 'POST',
 					url: baseurl + url,
-					params: parma,
+					data:$.param(parma),
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded:charset=utf-8'
 					}
-				}).success(function(response) {
-					q.resolve(response);
+				}).success(function(data, status, headers, config) {
+					q.resolve(data);
+				}).error(function(data, status, headers, config){
+					q.reject(data)
 				});
 				return q.promise;
 			}
@@ -305,34 +423,37 @@ commModule
 				})
 				return q.promise;
 			}
-			function GetRoles(_roles,callback){
-				var _len= _roles.length;
+
+			function GetRoles(_roles, callback) {
+				var _len = _roles.length;
 				dbBase.OpenTransaction(function(tx) {
-						for (var i = 0; i < _len; i++) {
-							dbBase.SelectTable(tx, "select * from tb_UserRoles where RoleID=?", [_roles[i]], function(data){
-								callback(data);
-							});
-						}
+					for (var i = 0; i < _len; i++) {
+						dbBase.SelectTable(tx, "select * from tb_UserRoles where RoleID=?", [_roles[i]], function(data) {
+							callback(data);
+						});
+					}
 				})
 			}
-			function GetFrontUser(adata,str,callback){
-				var _length=adata.length;
+
+			function GetFrontUser(adata, str, callback) {
+				var _length = adata.length;
 				dbBase.OpenTransaction(function(tx) {
-				for (var i = 0; i < _length; i++) {
-					dbBase.SelectTable(tx, "select * from tb_FrontUsers where UserID = ? And DepartmentID in " + str, [adata[i].UserID], function(newadata, RoleID) {
-						callback(newadata,RoleID);
-					}, adata[0].RoleID);
-				}
+					for (var i = 0; i < _length; i++) {
+						dbBase.SelectTable(tx, "select * from tb_FrontUsers where UserID = ? And DepartmentID in " + str, [adata[i].UserID], function(newadata, RoleID) {
+							callback(newadata, RoleID);
+						}, adata[0].RoleID);
+					}
 				})
 			}
-			function GetSceneType(adata,callback){
-				var _length=adata.length;
+
+			function GetSceneType(adata, callback) {
+				var _length = adata.length;
 				dbBase.OpenTransaction(function(tx) {
-				for (var i = 0; i < _length; i++) {
-					dbBase.SelectTable(tx, "select * from tb_SceneTypes where SceneTypeID = ?" , [adata[i]], function(data) {
-						callback(data);
-					});
-				}
+					for (var i = 0; i < _length; i++) {
+						dbBase.SelectTable(tx, "select * from tb_SceneTypes where SceneTypeID = ?", [adata[i]], function(data) {
+							callback(data);
+						});
+					}
 				})
 			}
 			//获取消息数据
@@ -459,7 +580,7 @@ commModule
 			//变更同步时间
 			function SaveWorkerTime(time) {
 				var q = $q.defer();
-				SqliteServ.saveOrupadte("tb_CurrentUsers", ['LastTime'], [time], "UserID=?", [userInfo.UserID]).then(function(res) {
+				SqliteServ.saveOrupadte("tb_CurrentUsers", ['LastTime'], [time], "UserID=?", [$rootScope.userInfo.UserID]).then(function(res) {
 					q.resolve(res);
 				});
 				return q.promise;
@@ -490,6 +611,35 @@ commModule
 			}
 			//具体现场：增加一条新的消息(历史，发送，worker)
 			function SaveNewToSceneItem(tx, jsondata, callback) {
+				if (jsondata) {
+					var _strcomments = ""
+					if (jsondata.Comments != null)
+						_strcomments = JSON.stringify(jsondata.Comments);
+					var _strimages = "";
+					if (jsondata.Images != null)
+						_strimages = JSON.stringify(jsondata.Images);
+					_Examines = jsondata.Examines == null ? "[]" : JSON.stringify(jsondata.Examines);
+					var _Files = "[]";
+					if (jsondata.Files != null) {
+						_Files = JSON.stringify(jsondata.Files);
+					}
+					dbBase.SaveOrUpdateTable(tx, "tb_SceneMessageComments", ["MessageID", "SceneID", "UserID", "UserPicture", "UserPictureURI", "UserName", "Address", "CreateTime", "Description", "Images", "Comments", "Status", "Type", "State", "PictureGuid", "Relation", "IsExamine", "Examines", "Files"], [jsondata.Id, jsondata.SceneID, jsondata.UserID, jsondata.UserPicture, "", jsondata.UserName, jsondata.Address + "," + jsondata.GPS, jsondata.CreateTime, jsondata.Description, _strimages, _strcomments, jsondata.Status, jsondata.Type, 1, jsondata.PictureGuid, jsondata.Relation, jsondata.IsExamine, _Examines, _Files], "MessageID", jsondata.Id);
+				}
+			};
+			//具体现场：增加新的消息(历史，发送，worker)
+			function SaveSceneMessageData(jsondata) {
+				if (jsondata) {
+					var _len = jsondata.length;
+					dbBase.OpenTransaction(function(tx) {
+						for (var i = 0; i < _len; i++) {
+							PushNewToSceneItem(tx, jsondata[i]);
+						}
+					})
+				}
+			};
+			//具体现场：增加一条新的消息(历史，发送，worker)
+
+			function PushNewToSceneItem(tx, jsondata) {
 				if (jsondata) {
 					var _strcomments = ""
 					if (jsondata.Comments != null)
@@ -562,9 +712,30 @@ commModule
 				}
 				return q.promise;
 			}
-			function BaseUpdate(tablename, field, param, condition, cparam){
+			/*改变状态*/
+			function ChangeState(jsondata, state) {
+				dbBase.OpenTransaction(function(tx) {
+					var _length = jsondata.length;
+					for (var i = 0; i < _length; i++) {
+						dbBase.UpdateTable(tx, "tb_SceneMessageComments", ['State'], [state], "MessageID=?", jsondata[i].MessageID, function(istrue) {
+							//				alert(istrue);
+						})
+					}
+				});
+			};
+
+			function BaseUpdate(tablename, field, param, condition, cparam) {
 				var q = $q.defer();
-				SqliteServ.update(tablename, field, param, condition, cparam).then(function(res){
+				SqliteServ.update(tablename, field, param, condition, cparam).then(function(res) {
+					q.resolve(res);
+				})
+				return q.promise;
+			}
+
+			function BaseSaveUpdate(tablename, field, param, condition, cparam) {
+				
+				var q = $q.defer();
+				SqliteServ.saveOrupadte(tablename, field, param, condition, cparam).then(function(res) {
 					q.resolve(res);
 				})
 				return q.promise;
@@ -737,7 +908,7 @@ commModule
 				return q.promise;
 			}
 			//
-			function BaseDelete(tablename, condition, param){
+			function BaseDelete(tablename, condition, param) {
 				var q = $q.defer()
 				SqliteServ.deletehis(tablename, condition, param).then(function(res) {
 					q.resolve(res);

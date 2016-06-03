@@ -1,0 +1,15 @@
+<ion-modal-view style="margin-left: 25%;margin-top: 70%;width: 50%;min-height: 105px; border-radius: 0.5rem;background-color: #000;">
+	<ion-content>
+		<div class="list">
+				<span class="btnmodals handletitle">选择图片</span>
+				<a class="item item-icon-right btnmodala" ng-click="TakePhoto()">
+					<span class="btnmodals">照相</span>
+					<i class="icon ion-chevron-right btnmodali"></i>
+				</a>
+				<a class="item item-icon-right btnmodala" ng-click="SelectPhoto()">
+					<span class="btnmodals">本地相册</span>
+					<i class="icon ion-chevron-right btnmodali"></i>
+				</a>
+		</div>
+	</ion-content>
+</ion-modal-view>

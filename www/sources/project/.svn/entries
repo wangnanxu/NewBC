@@ -1,19 +1,15 @@
 10
 
 dir
-2862
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/sources/project
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www/sources/project
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
-has-props
-
-
-
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -24,23 +20,23 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 projectServ.js
 file
-2863
+5
 
 
 
-2016-05-30T01:36:01.982773Z
-b3cfb61cde3a7d3547be2aba81d5a4b3
-2016-05-30T10:54:08.451020Z
-2863
-wangnan
-
-
-
-
+2016-06-03T07:11:14.098126Z
+d833161889bee7bc00172229d28ace67
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -58,23 +54,23 @@ wangnan
 
 
 
-3887
+
+
+
+
+4242
 
 projectCtrl.js
 file
-2863
+5
 
 
 
-2016-05-30T01:31:44.464043Z
-306e9eb6c511c0093d20cceef36c79e4
-2016-05-30T10:54:08.451020Z
-2863
-wangnan
-
-
-
-
+2016-06-03T06:35:59.941203Z
+c8bc69ff04926f7ba3248ee7d4b1c79d
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -92,19 +88,23 @@ wangnan
 
 
 
-726
+
+
+
+
+774
 
 project.html
 file
-2863
 
 
 
-2016-05-30T01:34:18.060829Z
+
+2016-06-03T02:05:07.996645Z
 b6eecd39ff58977003982b8e1425e3e4
-2016-05-30T10:54:08.451020Z
-2863
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 

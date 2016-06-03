@@ -7,6 +7,7 @@ materialModule
 			$scope.DownloadMaterial=DownloadMaterial;//点击下载资料
 			$scope.OpenApp=OpenApp;//打开文件
 			$scope.GoBack=GoBack;//隐藏下载页面
+			$scope.GoBackScene=GoBackScene;//跳回到现场页面
 			
 			$scope.serverdata = MaterialServ.GetServerData();
 			$scope.$on('$ionicView.loaded', function() {
@@ -47,6 +48,9 @@ materialModule
 					$scope.downModal.hide();
 					MaterialServ.GoBack();
 				}
+			}
+			function GoBackScene(){
+				MaterialServ.GoBackScene();
 			}
 			
 		

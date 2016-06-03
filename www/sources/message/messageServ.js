@@ -7,6 +7,8 @@ messageModule
 			var _historytime; //最旧显示消息时间
 			var nodeItem = "{id:'{id}',pId:'{pid}',name:'{name}',type:'{type}'}"; //树形结构列
 			var CurrentSelectPerson = [];
+			$rootScope.MessageList = null; //消息列表
+			$rootScope.NoticeList = null; //公告列表
 			var setting = {
 				view: {
 					selectedMulti: false,
@@ -27,10 +29,8 @@ messageModule
 			};
 			var serverdata = {
 				zNodes: [],
-				messagelist: null, //消息列表
-				noticelist: null, //公告列表
-				personcount: 0 ,//发送消息选择人数
-				content:''//发送内容
+				personcount: 0, //发送消息选择人数
+				content: '' //发送内容
 			}
 			var server = {
 				GetServerdata: GetServerdata,
@@ -38,7 +38,8 @@ messageModule
 				SelectMessage: SelectMessage,
 				ClickNotice: ClickNotice,
 				InitSendMessage: InitSendMessage,
-				SendMessageFun: SendMessageFun
+				SendMessageFun: SendMessageFun,
+				Destory: Destory
 			}
 			return server;
 
@@ -47,9 +48,14 @@ messageModule
 			}
 
 			function InitData() {
-				CommFun.Start();
 				$rootScope.IsHasNewMessage = false;
-				SelectMessage(true);
+				if ($rootScope.MessageList == null || ($rootScope.MessageList && $rootScope.MessageList.length < 0)) {
+					CommFun.Start();
+					SelectMessage(true);
+				}
+				//发送用$ionicModal，提前加载树形模块
+				SelectDepartment();
+
 			}
 
 			function SelectMessage(bool) {
@@ -63,7 +69,7 @@ messageModule
 					//加载历史记录
 					AddHistoryMessage();
 				}
-				
+
 			}
 
 			function InitUserMessage() {
@@ -72,20 +78,20 @@ messageModule
 					if (adata) {
 						var _len = adata.length;
 						_historytime = adata[_len - 1].Time;
-						if (serverdata.messagelist == null) {
-							serverdata.messagelist = new Array();
+						if ($rootScope.MessageList == null) {
+							$rootScope.MessageList = new Array();
 						}
 						for (var i = _len - 1; i >= 0; i--) {
-							serverdata.messagelist.push(adata[i]);
+							$rootScope.MessageList.push(adata[i]);
+							DownLoadHeadImg(adata[i]);
 						}
-						//serverdata.messagelist = serverdata.messagelist.concat(adata);
+						//$rootScope.MessageList = $rootScope.MessageList.concat(adata);
 						if (_len < messagePageSize) {
 							_isrefresh = false;
 						}
 					}
 					CommFun.RefreshData(serverdata);
-					//发送用$ionicModal，提前加载树形模块
-					SelectDepartment();
+
 				})
 			}
 			//添加历史
@@ -95,8 +101,9 @@ messageModule
 						if (adata) {
 							var _len = adata.length;
 							_historytime = adata[_len - 1].Time;
-							for (var i = 0; i <_len; i++) {
-								serverdata.messagelist.unshift(adata[i]);
+							for (var i = 0; i < _len; i++) {
+								$rootScope.MessageList.unshift(adata[i]);
+								DownLoadHeadImg(adata[i]);
 							}
 							CommFun.RefreshData(serverdata);
 							if (_len < messagePageSize) { //不足条数向服务器请求
@@ -129,8 +136,9 @@ messageModule
 					var _length = jsondata.length;
 					if (_length >= 1) {
 						_historytime = jsondata[_length - 1].Time;
-						for(var i=0;i<length;i++){
-							serverdata.messagelist.unshift(adata[i]);
+						for (var i = 0; i < length; i++) {
+							$rootScope.MessageList.unshift(adata[i]);
+							DownLoadHeadImg(adata[i]);
 						}
 					}
 					if (_length < messagePageSize) {
@@ -145,7 +153,7 @@ messageModule
 					if (data) {
 						var _length = data.length;
 						for (var i = 0; i < _length; i++) {
-							serverdata.noticelist.push(data[i]);
+							$rootScope.NoticeList.push(data[i]);
 						}
 					}
 					CommFun.RefreshData(serverdata);
@@ -153,9 +161,9 @@ messageModule
 			}
 			//点击公告关闭
 			function ClickNotice(id) {
-				if (serverdata.noticelist && serverdata.noticelist.length > 0) {
-					if (serverdata.noticelist[0].id == id) {
-						serverdata.noticelist.shift();
+				if ($rootScope.NoticeList && $rootScope.NoticeList.length > 0) {
+					if ($rootScope.NoticeList[0].id == id) {
+						$rootScope.NoticeList.shift();
 						DataServ.UpdateNoticeStatus(id);
 						DataServ.PostNoticeRead(id);
 					}
@@ -226,9 +234,9 @@ messageModule
 				}
 			};
 			//隐藏发送数据
-			function InitSendMessage(){
-				serverdata.personcount=0;
-				serverdata.content='';
+			function InitSendMessage() {
+				serverdata.personcount = 0;
+				serverdata.content = '';
 				InitTree();
 				CommFun.RefreshData(serverdata);
 			}
@@ -366,17 +374,59 @@ messageModule
 						if (adata.Success) { //请求成功
 							DataServ.UpdateSendMessage(data);
 							data.Status = '1';
+							ShowAddMessage(data);
+							DownLoadHeadImg(data);
 						} else {
 							DataServ.DeleteSendMessage(data);
 							//NotificationAlert("服务器发送消息错误：" + adata.Message, "错误提示"); //输出请求错误信息
 						}
-						//界面显示
-						serverdata.messagelist.push(data);
-						CommFun.RefreshData(serverdata);
+						
 					});
 				});
-
+				//界面显示
+				ShowAddMessage(data);
 			};
-			
+			function ShowAddMessage(data){
+				if($rootScope.MessageList==null){
+					$rootScope.MessageList=new Array();
+				}
+				var len=$rootScope.MessageList.length;
+				var has=false;
+				for(var i=0;i<len;i++){
+					if($rootScope.MessageList[i].MessageID==data.MessageID){
+						has=true;
+						$rootScope.MessageList[i].Status=data.Status;
+						break;
+					}
+				}
+				if(has==false){
+					$rootScope.MessageList.push(data);
+				}
+				CommFun.RefreshData(serverdata);
+			}
+			//下载头像
+			function DownLoadHeadImg(jsondata) {
+				if (jsondata) {
+					CommFun.Download(jsondata.SendUserPicture).then(function(adata) {
+						if (adata && typeof(adata) != 'string') {
+							if ($rootScope.MessageList && $rootScope.MessageList.length > 0) {
+								var len = $rootScope.MessageList.length;
+								for (var i = 0; i < len; i++) {
+									if ($rootScope.MessageList[i].SendUserID == jsondata.SendUserID) {
+										$rootScope.MessageList[i].SendUserPicture = adata.nativeURL;
+									}
+								}
+								CommFun.RefreshData(serverdata);
+							}
+						}
+					})
+				}
+
+			}
+
+			function Destory() {
+
+			}
+
 		}
 	])

@@ -1,19 +1,15 @@
 10
 
 dir
-2862
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/sources/material
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www/sources/material
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
-has-props
-
-
-
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -24,7 +20,11 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 material.html
 file
@@ -32,11 +32,11 @@ file
 
 
 
-2016-05-27T08:56:48.434536Z
-5be1252da818b61a59bc79fa0a8adbfc
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
+2016-06-03T02:05:08.452671Z
+9be702f497f425ff1e039571bc32253a
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -58,19 +58,19 @@ wangnan
 
 
 
-2392
+2487
 
 downModal.html
 file
-2863
 
 
 
-2016-05-30T03:21:19.083090Z
+
+2016-06-03T02:05:08.446671Z
 4ff6d9700295412cc18e20a63cf61405
-2016-05-30T10:54:08.451020Z
-2863
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -100,11 +100,11 @@ file
 
 
 
-2016-05-27T07:07:08.352177Z
-2ceedc9f0febae155c973728f2a13fcd
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
+2016-06-03T02:05:08.447671Z
+7285a0a34ea77a7f668857c6fea32d39
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -126,7 +126,7 @@ wangnan
 
 
 
-4872
+5158
 
 materialCtrl.js
 file
@@ -134,11 +134,11 @@ file
 
 
 
-2016-05-27T09:06:44.283617Z
-4bc50ac12607d3b70fbb8de3f28fc768
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
+2016-06-03T02:05:08.450671Z
+5f7cbee66efac02cf25e7b37d27671b4
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -160,5 +160,5 @@ wangnan
 
 
 
-1499
+1625
 

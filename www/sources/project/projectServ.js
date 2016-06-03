@@ -4,10 +4,10 @@ projectModule
 			var CurrentProPage = 0;
 			var CurrentProLength = 0;
 			var pageCount = 20; //每次上拉加载条数
-
+			$rootScope.ProjectList=null;//项目列表
 			var serverdata = {
-				projectlist: null,
-				currentlist: null
+				noMore:true,//
+				currentlist: null//项目当前显示列表当前
 			}
 			var server = {
 				GetServerData: GetServerData,
@@ -24,8 +24,13 @@ projectModule
 
 			function InitData() {
 				CurrentProPage = 0;
+				serverdata.currentlist=null;
 				$rootScope.FlagNewSceneItem = false;
-				SelectProject();
+				if($rootScope.ProjectList==null || ($rootScope.ProjectList && $rootScope.ProjectList.length<0)){
+					SelectProject();
+				}else{
+					ShowProject();
+				}
 			}
 
 			function SelectProject() {
@@ -60,10 +65,10 @@ projectModule
 							_arrFalse.sort(SortArr);
 							//Array.prototype.push.apply(_arrTrue, _arrFalse)
 							//var _arr = _arrTrue.concat(_arrFalse);
-							if (serverdata.projectlist == null) {
-								serverdata.projectlist = new Array();
+							if ($rootScope.ProjectList == null) {
+								$rootScope.ProjectList = new Array();
 							}
-							serverdata.projectlist=_arrTrue.concat(_arrFalse);
+							$rootScope.ProjectList=_arrTrue.concat(_arrFalse);
 							ShowProject();
 
 						}
@@ -83,30 +88,36 @@ projectModule
 			}
 
 			function ShowProject() {
-				if (serverdata.projectlist == null) {
+				if ($rootScope.ProjectList == null) {
 					return;
 				}
-				var _length = serverdata.projectlist.length;
+				var _length = $rootScope.ProjectList.length;
 				CurrentProLength = _length;
 				var startindex = CurrentProPage * pageCount;
 				var count = 0;
 				if (startindex < _length) {
 					for (var i = startindex; i < _length; i++) {
 						if (count >= pageCount) {
+							serverdata.noMore=false;
 							break;
 						}
 						//按照用户权限、项目状态、是否有现场划分是否显示项目
-						if ($rootScope.userInfo.RoleID == "11" && (adata[i].Status == "完成" || adata[i].HaveScene == false)) {
+						//当前条件有问题（未完成）
+						if ($rootScope.userInfo.RoleID == "11" && ($rootScope.ProjectList[i].Status == "完成" || $rootScope.ProjectList[i].HaveScene == false)) {
 							continue;
 						}
+						//
+						
 						count++;
 						if (serverdata.currentlist == null) {
 							serverdata.currentlist = new Array()
 						}
-						serverdata.currentlist.push(serverdata.projectlist[i]);
+						serverdata.currentlist.push($rootScope.ProjectList[i]);
 
 					}
 					CurrentProPage++;
+				}else{
+					serverdata.noMore=true;
 				}
 				CommFun.RefreshData(serverdata);
 			}
@@ -123,8 +134,6 @@ projectModule
 				})
 			}
 			function Destory(){
-				serverdata.projectlist=null;
-				serverdata.currentlist=null;
 				CurrentProPage=0;
 			}
 		}

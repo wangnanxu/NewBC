@@ -8,8 +8,8 @@ projectModule
 			$scope.$on("$ionicView.enter",function() {
 				ProjectServ.InitData();
 			})
-			$scope.$on("$ionicView.unload",function(){
-				ProjectServ.Destory();
+			$scope.$on("$ionicView.unloaded",function(){
+				Destory();
 			})
 			function loadMore(){
 				ProjectServ.ShowProject();
@@ -18,6 +18,9 @@ projectModule
 			}
 			function GotoScene(projectid,manager){
 				ProjectServ.GotoScene(projectid,manager);
+			}
+			function Destory(){
+				ProjectServ.Destory();
 			}
 		}
 	])

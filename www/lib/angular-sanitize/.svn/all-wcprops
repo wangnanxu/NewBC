@@ -1,53 +1,53 @@
 K 25
 svn:wc:ra_dav:version-url
-V 67
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize
+V 64
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize
 END
 index.js
 K 25
 svn:wc:ra_dav:version-url
-V 76
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/index.js
+V 73
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/index.js
 END
 package.json
 K 25
 svn:wc:ra_dav:version-url
-V 80
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/package.json
+V 77
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/package.json
 END
 .bower.json
 K 25
 svn:wc:ra_dav:version-url
-V 79
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/.bower.json
+V 76
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/.bower.json
 END
 angular-sanitize.min.js.map
 K 25
 svn:wc:ra_dav:version-url
-V 95
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/angular-sanitize.min.js.map
+V 92
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/angular-sanitize.min.js.map
 END
 bower.json
 K 25
 svn:wc:ra_dav:version-url
-V 78
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/bower.json
+V 75
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/bower.json
 END
 angular-sanitize.js
 K 25
 svn:wc:ra_dav:version-url
-V 87
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/angular-sanitize.js
+V 84
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/angular-sanitize.js
 END
 angular-sanitize.min.js
 K 25
 svn:wc:ra_dav:version-url
-V 91
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/angular-sanitize.min.js
+V 88
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/angular-sanitize.min.js
 END
 README.md
 K 25
 svn:wc:ra_dav:version-url
-V 77
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular-sanitize/README.md
+V 74
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular-sanitize/README.md
 END

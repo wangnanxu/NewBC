@@ -1,19 +1,15 @@
 10
 
 dir
-2862
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/sources/message
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www/sources/message
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
-has-props
-
-
-
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -24,24 +20,23 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 messageServ.js
 file
+5
 
 
 
-
-2016-05-26T10:05:41.406133Z
-4b06b42f0ba8073fb92f7ac1bce3d3c2
-2016-05-26T10:16:35.269944Z
-2861
-wangnan
-
-
-
-
-
+2016-06-03T09:47:02.859845Z
+5e51eb44b888b29c56754d0ca79e7bb5
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -58,24 +53,24 @@ wangnan
 
 
 
-11879
+
+
+
+
+
+13341
 
 messageCtrl.js
 file
+5
 
 
 
-
-2016-05-27T08:25:52.002355Z
-db49138c327adf98970e6f17b0faf73b
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
-
-
-
-
-
+2016-06-03T06:11:56.407638Z
+623bfb2300777c54a19c049f968ff3d4
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -92,27 +87,27 @@ wangnan
 
 
 
-1842
+
+
+
+
+
+2089
 
 lib
 dir
 
 message.html
 file
+5
 
 
 
-
-2016-05-27T07:54:21.646232Z
-d31bad892c8b38df82f5b3839ffcd08a
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
-
-
-
-
-
+2016-06-03T08:13:59.950520Z
+920d0e316a838097bfc9d5a202e5ca01
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -129,19 +124,24 @@ wangnan
 
 
 
-2512
+
+
+
+
+
+2440
 
 sendMessageModal.html
 file
-2863
 
 
 
-2016-05-30T03:21:02.431138Z
+
+2016-06-03T02:05:07.636624Z
 c3d4f2d576641872a2e8aa37bcf13f30
-2016-05-30T10:54:08.451020Z
-2863
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 

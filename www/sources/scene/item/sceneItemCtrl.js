@@ -22,12 +22,21 @@ sceneModule
 			$scope.SelectPhotoBtn = SelectPhotoBtn; //选择添加照片方式
 			$scope.SelectPhoto = SelectPhoto; //从相册选择照片
 			$scope.TakePhoto = TakePhoto; //照相
+			
+			$scope.ShowMap=ShowMap;//地图
+			$scope.HideMapModal=HideMapModal;//隐藏地图
+			$scope.DoSelectExamine=DoSelectExamine;//全部项、已办项、待办项
 
 			$scope.serverdata = SceneItemServ.GetServerData();
 			$scope.$on('$ionicView.enter', function() {
 				SceneItemServ.InitData();
 			})
-
+			$scope.$on('$ionicView.unloaded',function(){
+				if($scope.mapModal){
+					$scope.mapModal.remove();
+					$scope.mapModal=null;
+				}
+			})
 			function loadMoreMessage() {
 				SceneItemServ.LoadMore();
 				$scope.$broadcast('scroll.infiniteScrollComplete');
@@ -50,7 +59,36 @@ sceneModule
 					$scope.handleModal.show();
 				}
 			}
-
+			//隐藏
+			function HideHandleModal(){
+				if($scope.handleModal){
+					$scope.handleModal.hide();
+				}
+			}
+			function ShowMap(){
+				HideHandleModal();
+				if($scope.mapModal==null){
+					$ionicModal.fromTemplateUrl('sources/scene/mapModal/mapModal.html', {
+							scope: $scope,
+							animation: 'slide-in-right'
+						}).then(function(modal) {
+							$scope.mapModal = modal;
+							$scope.mapModal.show();
+						});
+				}else{
+					$scope.mapModal.show();
+				}
+			}
+			function HideMapModal(){
+				if($scope.mapModal){
+					$scope.mapModal.hide();
+				}
+			}
+			//切换显示
+			function DoSelectExamine(type){
+				HideHandleModal();
+				SceneItemServ.DoSelectExamine(type)
+			}
 			function DeleteComment(parentindex, index) {
 				SceneItemServ.DeleteComment(parentindex, index);
 			}

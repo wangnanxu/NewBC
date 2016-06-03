@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('BC', ['ionic','ngCordova','CommModule', 'LoginModule', 'MessageModule', 'ProjectModule', 'SceneModule', 'MaterialModule', 'AccountModule'])
 
-.run(function($ionicPlatform,SqliteServ) {
+.run(function($ionicPlatform,SqliteServ,CommFun) {
 	$ionicPlatform.ready(function() {
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -22,6 +22,8 @@ angular.module('BC', ['ionic','ngCordova','CommModule', 'LoginModule', 'MessageM
 		}
 		//创建数据库
 		SqliteServ.createDB();
+		//本地创建文件夹
+		CommFun.CreateDir();
 	});
 })
 

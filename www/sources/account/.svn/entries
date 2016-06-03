@@ -1,19 +1,15 @@
 10
 
 dir
-2862
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/sources/account
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www/sources/account
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
-has-props
-
-
-
+2016-06-03T03:14:31.297804Z
+3
+FengT
 
 
 
@@ -24,7 +20,11 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 account.html
 file
@@ -32,11 +32,11 @@ file
 
 
 
-2016-05-27T07:52:04.372381Z
+2016-06-03T02:05:08.316663Z
 fcd307dceb26389d96e7b268846de2ae
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -66,11 +66,11 @@ file
 
 
 
-2016-05-27T10:03:14.187508Z
+2016-06-03T02:05:08.317663Z
 9ce7885925ec65b3d06144422709dade
-2016-05-25T01:25:26.123865Z
-2852
-fengting
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -96,20 +96,15 @@ fengting
 
 accountCtrl.js
 file
+5
 
 
 
-
-2016-05-24T05:12:01.801901Z
-9b2d18f8084424c27a396fccf8469c06
-2016-05-24T06:04:40.260713Z
-2843
-wangnan
-
-
-
-
-
+2016-06-03T05:57:32.635233Z
+fe6b09d4676313bd8cb5d9673f9d5aae
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -126,5 +121,10 @@ wangnan
 
 
 
-63
+
+
+
+
+
+84
 

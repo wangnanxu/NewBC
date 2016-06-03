@@ -1,19 +1,15 @@
 10
 
 dir
-2862
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/sources/scene/item
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www/sources/scene/item
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-25T10:23:35.157713Z
-2858
-wangnan
-has-props
-
-
-
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -24,23 +20,23 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 sceneItem.html
 file
-2865
+5
 
 
 
-2016-05-31T10:26:03.684447Z
-ec428d63fe19cbfac3e526f10a1422ea
-2016-05-31T10:28:03.792172Z
-2865
-wangnan
-
-
-
-
+2016-06-03T08:44:17.248464Z
+4edd17c43d89d2fc0630af07110b7785
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -58,23 +54,23 @@ wangnan
 
 
 
-2173
+
+
+
+
+3598
 
 sceneItemServ.js
 file
-2865
+5
 
 
 
-2016-05-31T10:26:33.075128Z
-c8dcb02d71b5a5585d3df0c460c9dad8
-2016-05-31T10:28:03.792172Z
-2865
-wangnan
-
-
-
-
+2016-06-03T09:08:12.437552Z
+dd3141ad504bff7b70838f98c298a1c8
+2016-06-03T10:02:30.814000Z
+5
+wangn
 
 
 
@@ -92,23 +88,125 @@ wangnan
 
 
 
-5767
+
+
+
+
+21325
+
+selectPhotoModal.html
+file
+
+
+
+
+2016-06-03T02:05:08.362666Z
+5665103e3dba29104722bb75deb969df
+2016-06-03T01:51:53.359496Z
+1
+cxp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+646
+
+addSceneMessageModal.html
+file
+
+
+
+
+2016-06-03T02:05:08.363666Z
+fbe44f908e54bf596589948dde398bb6
+2016-06-03T01:51:53.359496Z
+1
+cxp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1284
+
+handleModal.html
+file
+
+
+
+
+2016-06-03T02:05:08.365666Z
+0ed95f9a99413310e6886cf5598fc096
+2016-06-03T01:51:53.359496Z
+1
+cxp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1003
 
 sceneItemCtrl.js
 file
-2865
+4
 
 
 
-2016-05-31T10:25:16.012720Z
-5bcfb3dab8a4e8f52509eeaed6dc1b13
-2016-05-31T10:28:03.792172Z
-2865
-wangnan
-
-
-
-
+2016-06-03T05:51:57.322054Z
+4e60d2002d99ef78ad66862d2c4ba1a1
+2016-06-03T05:56:49.583708Z
+4
+wangn
 
 
 
@@ -126,5 +224,9 @@ wangnan
 
 
 
-338
+
+
+
+
+4718
 

@@ -376,16 +376,14 @@ commModule
 				$http({
 					method: 'POST',
 					url: baseurl + url,
-					params: parma,
+					data:$.param(parma),
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded:charset=utf-8'
 					}
 				}).success(function(data, status, headers, config) {
-					data.status=status;
 					q.resolve(data);
 				}).error(function(data, status, headers, config){
-					data.status=status;
-					q.resolve(data)
+					q.reject(data)
 				});
 				return q.promise;
 			}
@@ -582,7 +580,7 @@ commModule
 			//变更同步时间
 			function SaveWorkerTime(time) {
 				var q = $q.defer();
-				SqliteServ.saveOrupadte("tb_CurrentUsers", ['LastTime'], [time], "UserID=?", [userInfo.UserID]).then(function(res) {
+				SqliteServ.saveOrupadte("tb_CurrentUsers", ['LastTime'], [time], "UserID=?", [$rootScope.userInfo.UserID]).then(function(res) {
 					q.resolve(res);
 				});
 				return q.promise;

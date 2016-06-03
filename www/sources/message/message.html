@@ -9,21 +9,21 @@
 		<ion-refresher on-refresh="SelectMessage()">
 		</ion-refresher>
 		<div ng-if="serverdata.noticelist">
-			<div class="notice" ng-click="ClickNotice(serverdata.noticelist[0].MessageID)">
+			<div class="notice" ng-click="ClickNotice(NoticeList[0].MessageID)">
 				<span class="y-span">公告：</span>
 				<span class="notice-span">{{serverdata.noticelist[0].Message}}</span>
 			</div>
 		</div>
 		<div>
 			<ul>
-				<li ng-repeat="message in serverdata.messagelist">
+				<li ng-repeat="message in MessageList">
 					<div ng-class="{'MyMessageLi':message.SendUserID == userInfo.UserID,'YouMessageLi':message.SendUserID != userInfo.UserID}">
 						<div ng-class="{'MyMessageLi':message.SendUserID == userInfo.UserID,'YouMessageLi':message.SendUserID != userInfo.UserID}">
 							<span ng-if="message.SendUserID == userInfo.UserID" class="MessageTitle">{{message.SendTime}} {{message.SendUserName}}</span>
 							<span ng-if="message.SendUserID != userInfo.UserID" class="MessageTitle">{{message.SendUserName}} {{message.SendTime}}</span>
 						</div>
 						<div ng-class="{'MyMessageBody':message.SendUserID == userInfo.UserID,'YouMessageBody':message.SendUserID != userInfo.UserID}">
-							<img ng-src='message.SendUserPicture' ng-class="{'MyMessagebody-img':message.SendUserID == userInfo.UserID,'YouMessagebody-img':message.SendUserID != userInfo.UserID}" />
+							<img ng-src='{{message.SendUserPicture}}' ng-class="{'MyMessagebody-img':message.SendUserID == userInfo.UserID,'YouMessagebody-img':message.SendUserID != userInfo.UserID}" />
 							<div ng-class="{'MyMessagebody-link':message.SendUserID == userInfo.UserID,'YouMessagebody-link':message.SendUserID != userInfo.UserID}">
 
 							</div>

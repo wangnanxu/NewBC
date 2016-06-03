@@ -13,6 +13,9 @@ messageModule
 			$scope.$on('$ionicView.enter',function(){
 				$ionicScrollDelegate.$getByHandle('messageScroll').scrollBottom();
 			})
+			$scope.$on('$ionicView.unloaded',function(){
+				Destory();
+			})
 			//下拉刷新
 			function SelectMessage() {
 				MessageServ.SelectMessage(false);
@@ -50,6 +53,13 @@ messageModule
 				$timeout(function(){
 					 $ionicScrollDelegate.$getByHandle('messageScroll').scrollBottom();
 				},200)
+			}
+			function Destory(){
+				if($scope.sendMessageModal){
+					$scope.sendMessageModal.remove();
+					$scope.sendMessageModal=null;
+				}
+				MessageServ.Destory();
 			}
 		}
 	])

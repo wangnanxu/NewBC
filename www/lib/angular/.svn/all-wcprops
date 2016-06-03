@@ -1,65 +1,65 @@
 K 25
 svn:wc:ra_dav:version-url
-V 58
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular
+V 55
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular
 END
 angular.min.js.map
 K 25
 svn:wc:ra_dav:version-url
-V 77
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/angular.min.js.map
+V 74
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/angular.min.js.map
 END
 index.js
 K 25
 svn:wc:ra_dav:version-url
-V 67
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/index.js
+V 64
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/index.js
 END
 angular-csp.css
 K 25
 svn:wc:ra_dav:version-url
-V 74
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/angular-csp.css
+V 71
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/angular-csp.css
 END
 package.json
 K 25
 svn:wc:ra_dav:version-url
-V 71
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/package.json
+V 68
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/package.json
 END
 .bower.json
 K 25
 svn:wc:ra_dav:version-url
-V 70
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/.bower.json
+V 67
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/.bower.json
 END
 angular.js
 K 25
 svn:wc:ra_dav:version-url
-V 69
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/angular.js
+V 66
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/angular.js
 END
 angular.min.js
 K 25
 svn:wc:ra_dav:version-url
-V 73
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/angular.min.js
+V 70
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/angular.min.js
 END
 bower.json
 K 25
 svn:wc:ra_dav:version-url
-V 69
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/bower.json
+V 66
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/bower.json
 END
 README.md
 K 25
 svn:wc:ra_dav:version-url
-V 68
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/README.md
+V 65
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/README.md
 END
 angular.min.js.gzip
 K 25
 svn:wc:ra_dav:version-url
-V 78
-/svn/BuildingCloud/!svn/ver/2853/App/NewBC/www/lib/angular/angular.min.js.gzip
+V 75
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/lib/angular/angular.min.js.gzip
 END

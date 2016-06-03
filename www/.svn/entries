@@ -1,19 +1,15 @@
 10
 
 dir
-2862
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-27T10:02:47.184102Z
-2862
-wangnan
-has-props
-
-
-
+2016-06-03T03:14:31.297804Z
+3
+FengT
 
 
 
@@ -24,7 +20,11 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 sources
 dir
@@ -34,15 +34,15 @@ dir
 
 index.html
 file
-2865
 
 
 
-2016-05-31T06:10:29.038355Z
+
+2016-06-03T02:05:10.817806Z
 154a552ba66401d6f97c6e7beb4e59b1
-2016-05-31T10:28:03.792172Z
-2865
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -72,11 +72,11 @@ file
 
 
 
-2016-05-24T05:09:46.164142Z
+2016-06-03T02:05:10.819807Z
 ec208fb85e8ea3cf421f1287031732b2
-2016-05-24T06:04:40.260713Z
-2843
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 

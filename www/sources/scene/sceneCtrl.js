@@ -17,6 +17,9 @@ sceneModule
 			$scope.$on("$ionicView.enter", function() {
 				SceneServ.InitData($stateParams.projectID, $stateParams.manager, $stateParams.sceneID);
 			})
+			$scope.$on('$ionicView.unloaded',function(){
+				Destory();
+			})
 			function GoBack() {
 				SceneServ.GoBack();
 			}
@@ -125,7 +128,28 @@ sceneModule
 			function HideMapModal(){
 				if($scope.mapModal){
 					$scope.mapModal.hide();
+					$scope.mapModal.remove();
+					$scope.mapModal=null;
 				}
+			}
+			function Destory(){
+				if($scope.addSceneModal){
+					$scope.addSceneModal.remove();
+					$scope.addSceneModal=null;
+				}
+				if($scope.sceneTypeModal){
+					$scope.sceneTypeModal.remove();
+					$scope.sceneTypeModal=null;
+				}
+				if($scope.btnModal){
+					$scope.btnModal.remove();
+					$scope.btnModal=null;
+				}
+				if($scope.mapModal){
+					$scope.mapModal.remove();
+					$scope.mapModal=null;
+				}
+				SceneServ.Destory();
 			}
 		}
 	])

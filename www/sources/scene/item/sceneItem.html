@@ -6,7 +6,7 @@
 	</ion-header-bar>
 	<ion-content style="background: #eee;">
 			<div class="sceneItem">
-				<div class="row row-wrap"  ng-repeat="item in serverdata.scenemessage" >
+				<div class="row row-wrap"  ng-repeat="item in serverdata.scenemessage|SceneMessageFilter:serverdata.isDO" >
 					<div class="col col-25">
 						<img ng-src="sources/comm/img/head.jpg" class="headimg"/>
 					</div>
@@ -27,11 +27,8 @@
 						<span>状态:{{item.StatusText}}</span>
 						<span>描述:{{item.Description}}</span>
 						<div class="row row-wrap ">
-							<div class="col col-50">
-								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
-							</div>
-							<div class="col col-50">
-								<img ng-src="sources/comm/img/head.jpg"  class="imgcontent"/>
+							<div class="col col-50" ng-repeat="imgitem in item.Images">
+								<img ng-src="{{imgitem.ThumbnailPicture}}"  class="imgcontent"/>
 							</div>
 						</div>
 						<div class="itembtn" ng-if="item.Model!=1 && serverdata.sceneState!='3'">

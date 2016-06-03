@@ -118,7 +118,7 @@ commModule
 							data.Data.Time = data.Time;
 							DataServ.SaveSyncMessage(data.Data);
 							//显示数据
-							//MessageServ.ShowAddUserMessage(data.Data);
+							MessageServ.ShowAddMessage(data.Data);
 							break;
 						default:
 							//alert("worker同步错误");

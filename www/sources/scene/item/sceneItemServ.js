@@ -3,9 +3,11 @@ sceneModule
 		function($state, DataServ, $rootScope, CommFun) {
 			var IsLoadHistory = {};
 			var serverdata = {
-				isinit:true,
+				isinit: true,
 				noMore: true, //是否可加载更多
+				currentScene: null, //当前现场
 				sceneState: 0,
+				isDO: 0, //默认为全部显示
 				IsSceneWorker: false, //是否为本现场工作人员
 				SelectStatus: 0,
 				sceneid: '', //当前现场id
@@ -19,9 +21,11 @@ sceneModule
 				DeleteComment: DeleteComment, //删除评论
 
 				SceneItemSign: SceneItemSign, //签到签退
-				GotoMaterialScene:GotoMaterialScene,//查看资料手册
-				
-				ShowAlert:ShowAlert,
+				GotoMaterialScene: GotoMaterialScene, //查看资料手册
+
+				DoSelectExamine: DoSelectExamine, //筛选
+
+				ShowAlert: ShowAlert,
 				GoBack: GoBack //返回
 			}
 			return server;
@@ -38,12 +42,14 @@ sceneModule
 
 			function InitScentItem() {
 				if ($rootScope.parentidList && $rootScope.parentidList.length > 1) {
-					serverdata.isinit=true;
+					serverdata.isinit = true;
 					var len = $rootScope.parentidList.length;
 					serverdata.sceneid = $rootScope.parentidList[len - 1];
 					DataServ.BaseSelect("select * from tb_Scenes where SceneID = ?", [serverdata.sceneid]).then(function(data) {
 						if (data) {
 							serverdata.sceneState = data[0].SceneState;
+							data[0].GPS = data[0].Address.split(',');
+							serverdata.currentScene = data[0];
 							//判断用户是否为改现场工作人员
 							var scworker = JSON.parse(data[0].SceneWorker);
 							var _length = scworker.length;
@@ -89,8 +95,8 @@ sceneModule
 								var _length = jsondata.length;
 								DataServ.SaveSceneMessageData(jsondata);
 								ShowData(jsondata);
-								if(	serverdata.isinit){
-										serverdata.isinit=false;
+								if (serverdata.isinit) {
+									serverdata.isinit = false;
 								}
 							} else {
 								//NotificationAlert("服务器获取现场历史数据错误：" + adata.Message, "错误提示");
@@ -110,10 +116,10 @@ sceneModule
 				}
 			};
 
-			function ShowData(jsondatas, islocal,_new) {
+			function ShowData(jsondatas, islocal, _new) {
 				var _length = jsondatas.length;
 				var _arrayTem = [];
-				for (var i = 0; i <_length; i++) {
+				for (var i = 0; i < _length; i++) {
 					var jsondata = jsondatas[i];
 					if (islocal) {
 						var Add_GPS = jsondata.Address.split(',')
@@ -123,12 +129,12 @@ sceneModule
 						if (jsondata.Comments != null && jsondata.Comments != '') {
 							jsondata.Comments = JSON.parse(jsondata.Comments);
 						}
-					}else{
-						
-						jsondata.GPS =jsondata.GPS == undefined ? [] : jsondata.GPS.split('|');
+					} else {
+
+						jsondata.GPS = jsondata.GPS == undefined ? [] : jsondata.GPS.split('|');
 					}
 					jsondata.Longitude = jsondata.GPS[1] == undefined ? "" : jsondata.GPS[1];
-						jsondata.Latitude = jsondata.GPS[0] == undefined ? "" : jsondata.GPS[0];
+					jsondata.Latitude = jsondata.GPS[0] == undefined ? "" : jsondata.GPS[0];
 					jsondata.Description = jsondata.Description == null ? "" : jsondata.Description;
 					var str = '';
 					switch (jsondata.Type) {
@@ -170,6 +176,8 @@ sceneModule
 					} else if (jsondata.Status == "3") {
 						stastr = "已归档";
 					}
+					jsondata.Images =jsondata.Images==""?[]:JSON.parse(jsondata.Images);
+					DownLoadSmallImg(jsondata);
 					jsondata.Model = CheckTem(jsondata.Status, jsondata.Type, jsondata.State);
 					jsondata.Options = ShowOption(jsondata.UserID, jsondata.Type, jsondata.Status, jsondata.IsExamine);
 					jsondata.StatusText = stastr;
@@ -191,19 +199,19 @@ sceneModule
 						}
 					}
 					if (has == false) {
-						if(_new){
+						if (_new) {
 							serverdata.scenemessage.unshift(jsondata)
-						}else{
+						} else {
 							serverdata.scenemessage.push(jsondata)
 						}
-						
+
 					}
-					
+
 				}
 			}
 			//上划加载更多
 			function LoadMore() {
-				if (IsLoadHistory[serverdata.sceneid] != false && serverdata.noMore==false && serverdata.isinit==false) {
+				if (IsLoadHistory[serverdata.sceneid] != false && serverdata.noMore == false && serverdata.isinit == false) {
 					DataServ.BaseSelect("select * from tb_SceneMessageComments where SceneID = ? and State != 0 and State !=2 and CreateTime < ? order by CreateTime desc limit 0,10", [serverdata.sceneid, IsLoadHistory[serverdata.sceneid]]).then(function(adata) {
 						CheckInitDBData(adata)
 					})
@@ -214,11 +222,11 @@ sceneModule
 				CommFun.ShowConfirm("删除提醒!", "确定要删除评论吗?").then(function(res) {
 					var _time = CommFun.format(new Date(), "yyyy-MM-dd hh:mm:ss");
 					var item = serverdata.scenemessage[parentIndex];
-					var comments=item[index].Commentsl
-					//请求服务器删除评论
+					var comments = item[index].Commentsl
+						//请求服务器删除评论
 					DataServ.PostDeleteComment(item.Id, comments[index].CommentGuid, _time);
 					//删除界面评论
-					serverdata.scenemessage[parentIndex].Comments.splice(index,1);
+					serverdata.scenemessage[parentIndex].Comments.splice(index, 1);
 					//操作本地数据库
 					DataServ.BaseSelect("select * from tb_SceneMessageComments where MessageID = ?", [item.Id]).thne(function(data) {
 						if (data) {
@@ -370,31 +378,28 @@ sceneModule
 							};
 							if ($rootScope.onLine) {
 								DataServ.PostAddSceneItem(_jsondata, jsondata.Status).then(function(adata) {
-									if (adata.status == 200) { //请求发送成功
-										if (adata.Success) {
-											adata.Value.Address = adata.Value.Address + "," + _jsondata.Address;
-											_UPCallback(adata.Value, _jsondata.Guid);
-										} else {
-											ShowAlert("错误提示", "服务器添加现场错误：" + adata.Message); //输出请求错误信息
-											DataServ.BaseDelete("tb_SceneMessageComments", "MessageID=?", [_jsondata.Guid]);
-											var len = serverdata.scenemessage.length;
-											for (var i = 0; i < len; i++) {
-												if (serverdata.scenemessage[i].Id == _jsondata.Guid) {
-													serverdata.scenemessage.splice(i,1);
-													break;
-												}
-											}
-										}
-
-									} else { //请求发送失败
+									if (adata.Success) {
+										adata.Value.Address = adata.Value.Address + "," + _jsondata.Address;
+										_UPCallback(adata.Value, _jsondata.Guid);
+									} else {
 										ShowAlert("错误提示", "服务器添加现场错误：" + adata.Message); //输出请求错误信息
 										DataServ.BaseDelete("tb_SceneMessageComments", "MessageID=?", [_jsondata.Guid]);
 										var len = serverdata.scenemessage.length;
 										for (var i = 0; i < len; i++) {
 											if (serverdata.scenemessage[i].Id == _jsondata.Guid) {
-												serverdata.scenemessage[i] = null;
+												serverdata.scenemessage.splice(i, 1);
 												break;
 											}
+										}
+									}
+								}, function(err) {
+									ShowAlert("错误提示", "服务器添加现场错误：" + adata.Message); //输出请求错误信息
+									DataServ.BaseDelete("tb_SceneMessageComments", "MessageID=?", [_jsondata.Guid]);
+									var len = serverdata.scenemessage.length;
+									for (var i = 0; i < len; i++) {
+										if (serverdata.scenemessage[i].Id == _jsondata.Guid) {
+											serverdata.scenemessage[i] = null;
+											break;
 										}
 									}
 								})
@@ -457,7 +462,7 @@ sceneModule
 				if ($rootScope.userInfo["SceneBuilding"] && serverdata.sceneState != '3') {
 					AddComplate(type, function(messageid) {
 						DataServ.BaseSelect("select * from tb_SceneMessageComments where MessageID = ?", [messageid]).then(function(adata) {
-							ShowData(adata, true,true);
+							ShowData(adata, true, true);
 							UploadSceneItem(adata[0]);
 						})
 					})
@@ -490,12 +495,14 @@ sceneModule
 					}
 				})
 			};
-
+			//返回现场列表
 			function GoBack() {
 				if ($rootScope.parentidList) {
 					$rootScope.parentidList.pop();
 					serverdata.scenemessage = null;
-					serverdata.noMore=true;
+					serverdata.noMore = true;
+					serverdata.isDO = 0;
+					serverdata.currentScene = null;
 					var len = $rootScope.parentidList.length;
 					$state.go('scene', {
 						projectID: $rootScope.projectId,
@@ -505,13 +512,88 @@ sceneModule
 				}
 
 			}
-			function GotoMaterialScene(){
-				$state.go('tab.material',{
-					isScene:'1'
+
+			function GotoMaterialScene() {
+				$state.go('tab.material', {
+					isScene: '1'
 				})
 			}
-			function ShowAlert(title,content){
-				CommFun.ShowAlert(title,content)
+			//切换全部，结办，待办
+			function DoSelectExamine(type) {
+				if (type != 0 && !$rootScope.userInfo.VerifySceneData) {
+					ShowAlert("提示", "无审核权限")
+					return;
+				}
+				if (type != serverdata.isDO) {
+
+					serverdata.isDO = type;
+					if (serverdata.isDO == 0) {
+						serverdata.noMore = true;
+						serverdata.scenemessage = null;
+						InitScentItem();
+					} else {
+						DataServ.BaseSelect("select * from tb_SceneMessageComments where SceneID = ? and State != 0 and State !=2 and Type!=1 and Type!=32 order by CreateTime desc", [serverdata.sceneid]).then(function(data) {
+							serverdata.noMore = true;
+							if (data && data.length > 0) {
+								serverdata.scenemessage = null;
+								ShowData(data, true);
+							}
+						})
+					}
+
+					CommFun.RefreshData(serverdata);
+				}
+			}
+
+			function ShowAlert(title, content) {
+				CommFun.ShowAlert(title, content)
+			}
+			//下载头像
+			function DownLoadHeadImg(jsondata) {
+				if (jsondata) {
+					CommFun.Download(jsondata.SendUserPicture).then(function(adata) {
+						if (adata && typeof(adata) != 'string') {
+
+						}
+					})
+				}
+			}
+
+			function DownLoadSmallImg(jsondata) {
+				if (jsondata && jsondata.Images && jsondata.Images.length > 0) {
+					var len = jsondata.Images.length
+					for (var i = 0; i < len; i++) {
+						var url = jsondata.Images[i].ThumbnailPicture;
+						CommFun.Download(url).then(function(adata) {
+							if (adata && typeof(adata) != 'string') {
+								ReplaceThumbnailPicture(jsondata.MessageID, url, adata.nativeURL);
+							}
+						})
+					}
+				}
+			}
+			//替换图片地址
+			function ReplaceThumbnailPicture(messageId, oldUrl, newUrl) {
+				if (serverdata.scenemessage && serverdata.scenemessage.length > 0) {
+					var _len = serverdata.scenemessage.length;
+					for (var j = 0; j < _len; j++) {
+						if (serverdata.scenemessage[j].MessageID == messageId) {
+							if (serverdata.scenemessage[j].Images && serverdata.scenemessage[j].Images.length > 0) {
+								var leng = serverdata.scenemessage[j].Images.length;
+								for (var k = 0; k < leng; k++) {
+									if (serverdata.scenemessage[j].Images[k].ThumbnailPicture == oldUrl) {
+										serverdata.scenemessage[j].Images[k].ThumbnailPicture = newUrl;
+									}
+								}
+							}
+							break;
+						}
+					}
+				}
+			}
+
+			function DownLoadBigImg(jsondata) {
+
 			}
 		}
 	])

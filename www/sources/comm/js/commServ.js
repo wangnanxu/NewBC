@@ -1,13 +1,13 @@
 commModule
-	.factory('CommFun', ['$timeout', '$q', '$ionicPopup', '$rootScope', '$cordovaDatePicker',
-		function($timeout, $q, $ionicPopup, $rootScope, $cordovaDatePicker) {
+	.factory('CommFun', ['$timeout', '$q', '$ionicPopup', '$rootScope', '$cordovaDatePicker', '$cordovaFileTransfer', '$cordovaFile', '$timeout',
+		function($timeout, $q, $ionicPopup, $rootScope, $cordovaDatePicker, $cordovaFileTransfer, $cordovaFile, $timeout) {
 			var refreshtime;
-			
+
 			var server = {
 				InitData: InitData, //初始化全局数据
 				RefreshData: RefreshData, //刷新数据到界面
 				ShowConfirm: ShowConfirm, //确认框
-				ShowAlert:ShowAlert,//警告框
+				ShowAlert: ShowAlert, //警告框
 				CheckPlatform: CheckPlatform, //检查平台信息
 				CheckItem: CheckItem, //检查数组中是否包含某个元素
 				format: format,
@@ -16,7 +16,9 @@ commModule
 				GetPosition: GetPosition,
 				GetBaiduAddress: GetBaiduAddress, //解析地址坐标
 				ShowDatePicker: ShowDatePicker,
-				Start: Start
+				Start: Start,
+				CreateDir: CreateDir, //创建文件夹
+				Download: Download
 			}
 			return server;
 
@@ -74,13 +76,13 @@ commModule
 				return q.promise;
 			};
 			//alert警告框
-			function ShowAlert(title,content){
+			function ShowAlert(title, content) {
 				var q = $q.defer();
-				var alertPopup  = $ionicPopup.alert({
+				var alertPopup = $ionicPopup.alert({
 					title: title,
 					template: content
 				});
-				alertPopup .then(function(res) {
+				alertPopup.then(function(res) {
 					q.resolve(res)
 					alertPopup.close();
 				});
@@ -252,23 +254,23 @@ commModule
 			}
 
 			function BBNetwork(callback) {
-					this.navigator=window.navigator;
-					this.callback=callback;
-					this._init=function() {
-						var that = this;
-						window.addEventListener("online", function() {
-							that._fnNetworkHandler();
-						}, true);
-						window.addEventListener("offline", function() {
-							that._fnNetworkHandler();
-						}, true)
-					};
-					this._fnNetworkHandler=function() {
-						this.callback && this.callback(this.navigator.onLine ? "online" : "offline");
-					};
-					this.isOnline=function() {
-						return this.navigator.onLine;
-					}
+				this.navigator = window.navigator;
+				this.callback = callback;
+				this._init = function() {
+					var that = this;
+					window.addEventListener("online", function() {
+						that._fnNetworkHandler();
+					}, true);
+					window.addEventListener("offline", function() {
+						that._fnNetworkHandler();
+					}, true)
+				};
+				this._fnNetworkHandler = function() {
+					this.callback && this.callback(this.navigator.onLine ? "online" : "offline");
+				};
+				this.isOnline = function() {
+					return this.navigator.onLine;
+				}
 				window.BBNetwork = BBNetwork;
 			};
 
@@ -304,6 +306,59 @@ commModule
 						}, 6000)
 						//alert("目前处于离线状态~~~~(>_<)~~~~ ");
 				}
+			};
+
+			function CreateDir() {
+				$cordovaFile.getFreeDiskSpace()
+					.then(function(success) {
+						$cordovaFile.checkDir(cordova.file.externalRootDirectory, "BuildCloud")
+							.then(function(success) {
+
+							}, function(error) {
+								$cordovaFile.createDir(cordova.file.externalRootDirectory, "BuildCloud", false)
+									.then(function(success) {
+										// success
+									}, function(error) {
+										ShowAlert("提示", "文件创建失败,清理内存重试");
+									});
+							});
+					}, function(error) {
+						ShowAlert("提示", "无内存空间")
+					});
 			}
+
+			function Download(url) {
+				var q = $q.defer();
+				if (!CheckPlatform()) {
+					var fileName = "";
+					if (url.indexOf("=") == -1) {
+						var filesurl = url.split('/');
+						fileName = filesurl[filesurl.length - 1];
+					} else {
+						var filesurl = url.split('=');
+						fileName = filesurl[filesurl.length - 1];
+					}
+					var targetPath = cordova.file.externalRootDirectory + "BuildCloud/" + fileName;
+					var trustHosts = true;
+					var options = {};
+					$cordovaFile.checkFile(cordova.file.externalRootDirectory + "BuildCloud/", fileName)
+						.then(function(success) {
+							q.resolve(success)
+						}, function(error) {
+							$cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+								.then(function(result) {
+									q.resolve(result);
+								}, function(err) {
+									q.reject(err);
+								}, function(progress) {
+									downloadProgress = (progress.loaded / progress.total) * 100;
+									q.resolve(downloadProgress);
+								});
+						});
+				}
+
+				return q.promise;
+			}
+
 		}
 	])

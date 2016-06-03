@@ -1,4 +1,5 @@
 accountModule
-.controller('AccountCtrl',[function(){
-	
-}])
+	.controller('AccountCtrl', ['$scope',
+	function($scope) {
+		
+	}])

@@ -1,19 +1,15 @@
 10
 
 dir
-2862
-http://115.29.110.41:8080/svn/BuildingCloud/App/NewBC/www/lib/ionic/css
-http://115.29.110.41:8080/svn/BuildingCloud
+3
+https://192.168.0.2/svn/BuildingCloud/App/NewBC/www/lib/ionic/css
+https://192.168.0.2/svn/BuildingCloud
 
 
 
-2016-05-26T10:16:35.269944Z
-2861
-wangnan
-has-props
-
-
-
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -24,7 +20,11 @@ has-props
 
 
 
-0f95e2f6-4ec2-d740-841a-dce430fb11e0
+
+
+
+
+d0bdfd24-bb88-3f45-b2e3-52b59d7d401a
 
 ionic.css
 file
@@ -32,11 +32,11 @@ file
 
 
 
-2016-05-26T09:50:59.562694Z
+2016-06-03T02:05:09.619738Z
 34c440c933ba33cdf7ca06fad4cc6c00
-2016-05-26T10:16:35.269944Z
-2861
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 
@@ -66,11 +66,11 @@ file
 
 
 
-2016-05-24T05:09:37.406642Z
+2016-06-03T02:05:09.621738Z
 5b49b6261b82f3fccaaeaa9732820607
-2016-05-24T06:04:40.260713Z
-2843
-wangnan
+2016-06-03T01:51:53.359496Z
+1
+cxp
 
 
 

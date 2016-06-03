@@ -1,41 +1,41 @@
 K 25
 svn:wc:ra_dav:version-url
-V 60
-/svn/BuildingCloud/!svn/ver/2862/App/NewBC/www/sources/login
+V 57
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/sources/login
 END
 sync.html
 K 25
 svn:wc:ra_dav:version-url
-V 70
-/svn/BuildingCloud/!svn/ver/2854/App/NewBC/www/sources/login/sync.html
+V 67
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/sources/login/sync.html
 END
 loginServ.js
 K 25
 svn:wc:ra_dav:version-url
-V 73
-/svn/BuildingCloud/!svn/ver/2863/App/NewBC/www/sources/login/loginServ.js
+V 70
+/svn/BuildingCloud/!svn/ver/5/App/NewBC/www/sources/login/loginServ.js
 END
 syncServ.js
 K 25
 svn:wc:ra_dav:version-url
-V 72
-/svn/BuildingCloud/!svn/ver/2858/App/NewBC/www/sources/login/syncServ.js
+V 69
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/sources/login/syncServ.js
 END
 loginCtrl.js
 K 25
 svn:wc:ra_dav:version-url
-V 73
-/svn/BuildingCloud/!svn/ver/2844/App/NewBC/www/sources/login/loginCtrl.js
+V 70
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/sources/login/loginCtrl.js
 END
 login.html
 K 25
 svn:wc:ra_dav:version-url
-V 71
-/svn/BuildingCloud/!svn/ver/2862/App/NewBC/www/sources/login/login.html
+V 68
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/sources/login/login.html
 END
 syncCtrl.js
 K 25
 svn:wc:ra_dav:version-url
-V 72
-/svn/BuildingCloud/!svn/ver/2854/App/NewBC/www/sources/login/syncCtrl.js
+V 69
+/svn/BuildingCloud/!svn/ver/1/App/NewBC/www/sources/login/syncCtrl.js
 END
